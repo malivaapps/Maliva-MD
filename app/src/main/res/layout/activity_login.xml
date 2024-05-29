@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -5,73 +6,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".view.register.RegisterActivity">
+    tools:context=".view.login.LoginActivity">
 
     <TextView
-        android:id="@+id/tv_Register"
+        android:id="@+id/tv_Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="105dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="@string/register_title"
+        android:text="@string/login_title"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_RegisterDesc"
+        android:id="@+id/tv_LoginDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
-        android:text="@string/register_desc"
+        android:text="@string/login_desc"
         android:textColor="@color/text_secondary"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_Register"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Register" />
-
-    <TextView
-        android:id="@+id/tv_Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:fontFamily="@font/poppins_medium"
-        android:text="@string/inputname"
-        android:textColor="@color/text_secondary_darker"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_RegisterDesc"
-        app:layout_constraintTop_toBottomOf="@+id/tv_RegisterDesc" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/nameEditTextLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_Name">
-
-        <com.example.maliva.view.customview.MyEditText
-            android:id="@+id/nameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_background"
-            android:ems="10"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintStart_toStartOf="@+id/tv_Login"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Login" />
 
     <TextView
         android:id="@+id/tv_Email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="36dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/inputemail"
         android:textColor="@color/text_secondary_darker"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_Name"
-        app:layout_constraintTop_toBottomOf="@+id/nameEditTextLayout" />
+        app:layout_constraintStart_toStartOf="@+id/tv_LoginDesc"
+        app:layout_constraintTop_toBottomOf="@+id/tv_LoginDesc" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailEditTextLayout"
@@ -127,7 +97,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/signupButton"
+        android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="52dp"
         android:layout_marginHorizontal="24dp"
@@ -135,7 +105,7 @@
         android:backgroundTint="@color/primary"
         android:fontFamily="@font/poppins_semibold"
         android:outlineSpotShadowColor="@android:color/transparent"
-        android:text="@string/register_button"
+        android:text="@string/login_button"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="14sp"
@@ -151,21 +121,21 @@
         android:layout_height="0.7dp"
         android:background="@color/text_secondary"
         app:layout_constraintBottom_toTopOf="@+id/buttonGoogle"
-        app:layout_constraintStart_toStartOf="@+id/signupButton"
-        app:layout_constraintTop_toBottomOf="@+id/signupButton"></View>
+        app:layout_constraintStart_toStartOf="@+id/loginButton"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"></View>
 
     <TextView
-        android:id="@+id/signupWith"
+        android:id="@+id/loginWith"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/orSignUp"
+        android:text="@string/orLogin"
         android:fontFamily="@font/poppins_medium"
         android:textColor="@color/text_secondary_darker"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonGoogle"
         app:layout_constraintEnd_toStartOf="@+id/view2"
         app:layout_constraintStart_toEndOf="@+id/view"
-        app:layout_constraintTop_toBottomOf="@+id/signupButton" />
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
     <View
         android:id="@+id/view2"
@@ -173,8 +143,8 @@
         android:layout_height="0.7dp"
         android:background="@color/text_secondary"
         app:layout_constraintBottom_toTopOf="@+id/buttonGoogle"
-        app:layout_constraintEnd_toEndOf="@+id/signupButton"
-        app:layout_constraintTop_toBottomOf="@+id/signupButton"></View>
+        app:layout_constraintEnd_toEndOf="@+id/loginButton"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"></View>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonGoogle"
@@ -195,37 +165,38 @@
         app:iconTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupButton"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
         app:strokeColor="@color/text_secondary"
         app:strokeWidth="0.8dp"
         tools:alpha="100" />
 
     <TextView
-        android:id="@+id/tv_goToLogin"
+        android:id="@+id/tv_goToRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
-        android:text="@string/tvHaveAcc"
+        android:text="@string/tvDontHaveAcc"
         android:textColor="@color/text_secondary_darker"
         android:textSize="13sp"
+        android:layout_marginBottom="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.351"
+        app:layout_constraintHorizontal_bias="0.361"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonGoogle"
-        app:layout_constraintVertical_bias="0.822" />
+        app:layout_constraintVertical_bias="0.906" />
 
     <TextView
-        android:id="@+id/tv_directToLogin"
+        android:id="@+id/tv_directToRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/directToLogin"
+        android:text="@string/directToRegister"
         android:textColor="@color/primary"
         android:layout_marginLeft="6dp"
         android:textSize="13sp"
         android:fontFamily="@font/poppins_semibold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_goToLogin"
-        app:layout_constraintStart_toEndOf="@+id/tv_goToLogin"
-        app:layout_constraintTop_toTopOf="@+id/tv_goToLogin" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_goToRegister"
+        app:layout_constraintStart_toEndOf="@+id/tv_goToRegister"
+        app:layout_constraintTop_toTopOf="@+id/tv_goToRegister" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

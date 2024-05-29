@@ -1,0 +1,234 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".view.register.RegisterActivity">
+
+    <TextView
+        android:id="@+id/tv_Register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="105dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/register_title"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_RegisterDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/register_desc"
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_Register"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Register" />
+
+    <TextView
+        android:id="@+id/tv_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/register_inputname"
+        android:textColor="@color/text_secondary_darker"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_RegisterDesc"
+        app:layout_constraintTop_toBottomOf="@+id/tv_RegisterDesc" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameEditTextLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Name"
+        android:hint="@string/placeholderName">
+
+        <com.example.maliva.view.customview.MyEditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_Email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/register_inputemail"
+        android:textColor="@color/text_secondary_darker"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_Name"
+        app:layout_constraintTop_toBottomOf="@+id/nameEditTextLayout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailEditTextLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Email"
+        tools:alpha="100"
+        android:hint="@string/placeholderEmail">
+
+        <com.example.maliva.view.customview.MyEditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:inputType="textEmailAddress"></com.example.maliva.view.customview.MyEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_Pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/register_inputpass"
+        android:textColor="@color/text_secondary_darker"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/emailEditTextLayout"
+        app:layout_constraintTop_toBottomOf="@+id/emailEditTextLayout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordEditTextLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        app:endIconMode="password_toggle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Pass"
+        tools:alpha="100"
+        android:hint="@string/placeholderPassword">
+
+        <com.example.maliva.view.customview.MyEditText
+            android:id="@+id/passwordEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_background"
+            android:ems="10"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/signupButton"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/primary"
+        android:fontFamily="@font/poppins_semibold"
+        android:outlineSpotShadowColor="@android:color/transparent"
+        android:text="@string/register_button"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout"
+        tools:alpha="100" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="120dp"
+        android:layout_height="0.7dp"
+        android:background="@color/text_secondary"
+        app:layout_constraintBottom_toTopOf="@+id/sigunUpButtonGoogle"
+        app:layout_constraintStart_toStartOf="@+id/signupButton"
+        app:layout_constraintTop_toBottomOf="@+id/signupButton"></View>
+
+    <TextView
+        android:id="@+id/signupWith"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/orSignUp"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/text_secondary_darker"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@+id/sigunUpButtonGoogle"
+        app:layout_constraintEnd_toStartOf="@+id/view2"
+        app:layout_constraintStart_toEndOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/signupButton" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="120dp"
+        android:layout_height="0.7dp"
+        android:background="@color/text_secondary"
+        app:layout_constraintBottom_toTopOf="@+id/sigunUpButtonGoogle"
+        app:layout_constraintEnd_toEndOf="@+id/signupButton"
+        app:layout_constraintTop_toBottomOf="@+id/signupButton"></View>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sigunUpButtonGoogle"
+        android:layout_width="363dp"
+        android:layout_height="52dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="64dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingEnd="50dp"
+        android:text="@string/register_button_google"
+        android:textAllCaps="false"
+        android:textColor="@color/text_secondary_darker"
+        android:textSize="14sp"
+        app:cornerRadius="8dp"
+        app:icon="@drawable/ic_google"
+        app:iconSize="24dp"
+        app:iconTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signupButton"
+        app:strokeColor="@color/text_secondary"
+        app:strokeWidth="0.8dp"
+        tools:alpha="100" />
+
+    <TextView
+        android:id="@+id/tv_goToLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/tvHaveAcc"
+        android:textColor="@color/text_secondary_darker"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.351"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sigunUpButtonGoogle"
+        app:layout_constraintVertical_bias="0.822" />
+
+    <TextView
+        android:id="@+id/tv_directToLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/directToLogin"
+        android:textColor="@color/primary"
+        android:layout_marginLeft="6dp"
+        android:textSize="13sp"
+        android:fontFamily="@font/poppins_semibold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_goToLogin"
+        app:layout_constraintStart_toEndOf="@+id/tv_goToLogin"
+        app:layout_constraintTop_toTopOf="@+id/tv_goToLogin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

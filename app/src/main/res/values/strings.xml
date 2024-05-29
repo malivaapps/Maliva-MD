@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Maliva</string>
+    <string name="register_title">Create Account</string>
+    <string name="register_desc">Connect with us today!</string>
+    <string name="register_email">Email Address</string>
+
+    <string name="valid_email">Please enter a valid email address</string>
+    <string name="valid_password">Password must not be less than 8 characters</string>
+
+    <string name="register_inputname">Name</string>
+    <string name="register_inputemail">Email Address</string>
+    <string name="register_inputpass">Password</string>
+    <string name="register_button">Sign Up</string>
+    <string name="register_button_google">Continue with Google</string>
+    <string name="orSignUp">Or Sign Up With</string>
+    <string name="tvHaveAcc">Already have an account?</string>
+    <string name="directToLogin">Login Now</string>
+    <string name="placeholderName">Enter your name</string>
+    <string name="placeholderEmail">Enter your email</string>
+    <string name="placeholderPassword">Enter your password</string>
+
+</resources>

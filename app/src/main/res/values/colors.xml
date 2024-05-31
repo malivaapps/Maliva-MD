@@ -9,5 +9,6 @@
     <color name="text_primary">#FF1E1E1E</color>
     <color name="text_secondary">#FFA4A4A4</color>
     <color name="text_secondary_darker">#FF6C757D</color>
+    <color name="text_secondary_lighter">#FFCDCDCD</color>
     <color name="background">#FFF5F5F5</color>
 </resources>

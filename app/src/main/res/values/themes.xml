@@ -6,4 +6,21 @@
     </style>
 
     <style name="Theme.Maliva" parent="Base.Theme.Maliva" />
+
+    <style name="ImageViewRoundedOverlay" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">7%</item>
+    </style>
+
+    <style name="CustomText">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="CustomFabStyle" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:background">@drawable/bg_fab</item>
+    </style>
+
+
 </resources>

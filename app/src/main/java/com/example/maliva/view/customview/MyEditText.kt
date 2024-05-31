@@ -1,12 +1,10 @@
 package com.example.maliva.view.customview
 
 import android.content.Context
-import android.graphics.Canvas
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Patterns
-import androidx.core.content.ContextCompat
 import com.example.maliva.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -55,7 +53,7 @@ class MyEditText : TextInputEditText {
                         setBackgroundResource(R.drawable.stroke_error)
                     } else {
                         parent.error = null
-                        setBackgroundResource(R.drawable.edit_text_background) // Change to default background
+                        setBackgroundResource(R.drawable.bg_edit_text) // Change to default background
                     }
                 }
                 PASSWORD_TYPE -> {
@@ -64,7 +62,7 @@ class MyEditText : TextInputEditText {
                         setBackgroundResource(R.drawable.stroke_error)
                     } else {
                         parent.error = null
-                        setBackgroundResource(R.drawable.edit_text_background) // Change to default background
+                        setBackgroundResource(R.drawable.bg_edit_text) // Change to default background
                     }
                 }
             }

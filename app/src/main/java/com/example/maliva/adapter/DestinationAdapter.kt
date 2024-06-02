@@ -8,11 +8,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maliva.R
 
-class DestinationAdapter(private val destinationList: List<DestinationItem>, private val viewType: Int, private val showRating: Boolean = true) : RecyclerView.Adapter<DestinationAdapter.DestinationViewHolder>() {
+class DestinationAdapter(
+    private val destinationList: List<DestinationItem>,
+    private val viewType: Int,
+    private val showRating: Boolean = true
+) : RecyclerView.Adapter<DestinationAdapter.DestinationViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DestinationViewHolder {
-        // Inflate item_destination.xml or item_destination_2.xml based on viewType
-        val layoutRes = if (viewType == VIEW_TYPE_POPULAR) R.layout.item_destination else R.layout.item_destination_2
+        // Inflate item_destination.xml or item_saved.xml based on viewType
+        val layoutRes = when (viewType) {
+            VIEW_TYPE_POPULAR -> R.layout.item_destination
+            VIEW_TYPE_SAVED -> R.layout.item_saved
+            else -> R.layout.item_destination_2 // Default or additional view type
+        }
         val view = LayoutInflater.from(parent.context).inflate(layoutRes, parent, false)
         return DestinationViewHolder(view)
     }
@@ -25,7 +33,7 @@ class DestinationAdapter(private val destinationList: List<DestinationItem>, pri
     override fun getItemCount(): Int = destinationList.size
 
     override fun getItemViewType(position: Int): Int {
-        // Decide view type based on viewType parameter
+        // Return the view type based on the passed viewType parameter
         return viewType
     }
 
@@ -53,6 +61,7 @@ class DestinationAdapter(private val destinationList: List<DestinationItem>, pri
 
     companion object {
         const val VIEW_TYPE_POPULAR = 0
-        const val VIEW_TYPE_RECOMMENDED = 1
+        const val VIEW_TYPE_SAVED = 1
+        const val VIEW_TYPE_RECOMMENDED = 2
     }
 }

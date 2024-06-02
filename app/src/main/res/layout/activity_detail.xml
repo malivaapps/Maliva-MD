@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".view.detail.DetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/destinationImageView"
+            android:layout_width="match_parent"
+            android:layout_height="340dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_destination1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="29dp"
+            android:src="@drawable/ic_button_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_favorite"
+            style="@style/CustomFabStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:src="@drawable/ic_heart"
+            app:fabCustomSize="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/text_secondary" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="280dp"
+            android:background="@drawable/bg_detail"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/destinationImageView"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Coban Rondo"
+                android:textColor="@color/text_primary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/priceTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="25.000 IDR"
+                android:textColor="@color/primary"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toStartOf="@+id/titleTextView"
+                app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+                app:srcCompat="@drawable/ic_location" />
+
+            <TextView
+                android:id="@+id/locationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingTop="2dp"
+                android:text="Batu, Malang"
+                android:textColor="@color/text_secondary"
+                android:textSize="14.5sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+            <ImageView
+                android:id="@+id/rate"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_marginEnd="5dp"
+                android:paddingBottom="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/ratingTextView"
+                app:layout_constraintEnd_toStartOf="@+id/ratingTextView"
+                app:layout_constraintTop_toTopOf="@+id/ratingTextView"
+                app:srcCompat="@drawable/ic_rate" />
+
+            <TextView
+                android:id="@+id/ratingTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingTop="2dp"
+                android:text="4.9"
+                android:textColor="@color/text_primary"
+                android:textSize="16.5sp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_user1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_user1" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_user1"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="-3dp"
+                android:layout_marginTop="18dp"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/locationTextView"
+                app:shapeAppearanceOverlay="@style/RoundedImageViewWithStroke"
+                app:srcCompat="@drawable/img_user1"
+                app:strokeColor="@color/white"
+                app:strokeWidth="3dp" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_user2"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="-15dp"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_user1"
+                app:layout_constraintStart_toEndOf="@+id/iv_user1"
+                app:layout_constraintTop_toTopOf="@+id/iv_user1"
+                app:shapeAppearanceOverlay="@style/RoundedImageViewWithStroke"
+                app:srcCompat="@drawable/img_user2"
+                app:strokeColor="@color/white"
+                app:strokeWidth="3dp" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_user3"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="-15dp"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_user2"
+                app:layout_constraintStart_toEndOf="@+id/iv_user2"
+                app:layout_constraintTop_toTopOf="@+id/iv_user2"
+                app:shapeAppearanceOverlay="@style/RoundedImageViewWithStroke"
+                app:srcCompat="@drawable/img_user3"
+                app:strokeColor="@color/white"
+                app:strokeWidth="3dp" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_user4"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="-15dp"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_user3"
+                app:layout_constraintStart_toEndOf="@+id/iv_user3"
+                app:layout_constraintTop_toTopOf="@+id/iv_user3"
+                app:shapeAppearanceOverlay="@style/RoundedImageViewWithStroke"
+                app:srcCompat="@drawable/img_user4"
+                app:strokeColor="@color/white"
+                app:strokeWidth="3dp" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_user5"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="-15dp"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_user4"
+                app:layout_constraintStart_toEndOf="@+id/iv_user4"
+                app:layout_constraintTop_toTopOf="@+id/iv_user4"
+                app:shapeAppearanceOverlay="@style/RoundedImageViewWithStroke"
+                app:srcCompat="@drawable/img_user5"
+                app:strokeColor="@color/white"
+                app:strokeWidth="3dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_destination"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:layout_constraintStart_toStartOf="@+id/iv_user1"
+                app:layout_constraintTop_toBottomOf="@+id/iv_user1">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_tab_layout"
+                    app:tabBackground="@drawable/bg_tab_selecter"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabSelectedTextColor="@color/white">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Description" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gallery" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Review" />
+                </com.google.android.material.tabs.TabLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -36,4 +36,15 @@
     <string name="seeMore">See More</string>
     <string name="tv_recommendDestination">Recommended Destination</string>
 
+    <string name="tv_bookmark">Your Bookmark</string>
+    <string name="tv_profile">Profile</string>
+    <string name="notification">Notifications</string>
+    <string name="languange">Languange</string>
+    <string name="support">Support</string>
+    <string name="dark_mode">Dark Mode</string>
+
+    <string name="description">Coban Rondo is a stunning waterfall located in Malang, Indonesia. It serves as a vital recreational spot for local communities, supporting tourism and providing a peaceful retreat. The waterfall is renowned for its lush, green surroundings and breathtaking scenery.</string>
+    <string name="location">Location</string>
+    <string name="map_button">Start a Journey</string>
+
 </resources>

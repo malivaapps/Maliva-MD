@@ -43,7 +43,7 @@
                 android:paddingTop="2dp"
                 android:paddingHorizontal="6dp"
                 android:layout_marginBottom="10dp"
-                android:textSize="12sp"
+                android:textSize="13.5sp"
                 android:textColor="@color/white"
                 android:fontFamily="@font/poppins_medium"
                 app:layout_constraintBottom_toBottomOf="parent"

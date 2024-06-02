@@ -15,8 +15,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/destinationImageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
             android:layout_marginVertical="15dp"
             android:layout_marginStart="15dp"
             android:scaleType="centerCrop"
@@ -32,19 +32,19 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
             android:paddingTop="2dp"
+            android:layout_marginTop="1dp"
             android:text="25.000 IDR"
             android:textColor="@color/primary"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_person"
-            app:layout_constraintEnd_toStartOf="@+id/tv_person"
-            app:layout_constraintTop_toTopOf="@+id/tv_person" />
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Kapuas River"
             android:textColor="@color/text_primary"
@@ -56,18 +56,18 @@
             android:id="@+id/imageView2"
             android:layout_width="14dp"
             android:layout_height="14dp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintStart_toStartOf="@+id/titleTextView"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@+id/priceTextView"
+            app:layout_constraintTop_toBottomOf="@+id/priceTextView"
             app:srcCompat="@drawable/ic_location" />
 
         <TextView
             android:id="@+id/locationTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:fontFamily="@font/poppins_medium"
             android:paddingTop="2dp"
+            android:layout_marginStart="4dp"
             android:text="Batu, Malang"
             android:textColor="@color/text_secondary"
             android:textSize="12sp"
@@ -80,14 +80,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:paddingTop="2dp"
-            android:layout_marginEnd="15dp"
+            android:paddingTop="5dp"
             android:text="/person"
             android:textColor="@color/text_secondary"
             android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/locationTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/locationTextView" />
+            app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
+            app:layout_constraintStart_toEndOf="@+id/priceTextView"
+            app:layout_constraintTop_toTopOf="@+id/priceTextView"
+            app:layout_constraintVertical_bias="0.333" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

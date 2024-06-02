@@ -22,5 +22,10 @@
         <item name="android:background">@drawable/bg_fab</item>
     </style>
 
+    <style name="RoundedImageViewWithStroke">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">52%</item>
+    </style>
+
 
 </resources>

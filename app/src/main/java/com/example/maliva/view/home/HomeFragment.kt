@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.maliva.R
-import com.example.maliva.adapter.CategoryAdapter
-import com.example.maliva.adapter.CategoryItem
-import com.example.maliva.adapter.DestinationAdapter
-import com.example.maliva.adapter.DestinationItem
+import com.example.maliva.adapter.category.CategoryAdapter
+import com.example.maliva.adapter.category.CategoryItem
+import com.example.maliva.adapter.destination.DestinationAdapter
+import com.example.maliva.adapter.destination.DestinationItem
 import com.example.maliva.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {

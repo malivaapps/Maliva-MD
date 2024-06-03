@@ -47,4 +47,10 @@
     <string name="location">Location</string>
     <string name="map_button">Start a Journey</string>
 
+    <string name="gallery_button">Add Picture</string>
+
+    <string name="review_button">Add Review</string>
+    <string name="tv_review">Wow! Visiting Coban Rondo was an incredible experience. The walk to the waterfall was so peaceful, surrounded by lush greenery and diverse wildlife. Its amazing how this spot connects so many communities and supports their way of life. </string>
+
+
 </resources>

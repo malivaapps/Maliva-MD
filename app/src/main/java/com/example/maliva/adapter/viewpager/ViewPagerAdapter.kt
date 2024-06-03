@@ -1,4 +1,4 @@
-package com.example.maliva.view.detail
+package com.example.maliva.adapter.viewpager
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -9,7 +9,7 @@ import com.example.maliva.view.review.ReviewFragment
 
 class ViewPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {
-        return 3 // Number of tabs
+        return 3
     }
 
     override fun createFragment(position: Int): Fragment {

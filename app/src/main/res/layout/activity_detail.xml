@@ -49,6 +49,7 @@
             app:tint="@color/text_secondary" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="280dp"
@@ -125,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
-                android:fontFamily="@font/poppins_medium"
+                android:fontFamily="@font/poppins_semibold"
                 android:paddingTop="2dp"
                 android:text="4.9"
                 android:textColor="@color/text_primary"
@@ -214,7 +215,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/bg_destination"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"
@@ -228,7 +229,8 @@
                     android:background="@drawable/bg_tab_layout"
                     app:tabBackground="@drawable/bg_tab_selecter"
                     app:tabIndicatorHeight="0dp"
-                    app:tabSelectedTextColor="@color/white">
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabTextAppearance="@style/CustomTabText">
 
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
@@ -251,6 +253,9 @@
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView2" />

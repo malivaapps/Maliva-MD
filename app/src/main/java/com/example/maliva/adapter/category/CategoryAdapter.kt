@@ -1,4 +1,4 @@
-package com.example.maliva.adapter
+package com.example.maliva.adapter.category
 
 import android.view.LayoutInflater
 import android.view.View

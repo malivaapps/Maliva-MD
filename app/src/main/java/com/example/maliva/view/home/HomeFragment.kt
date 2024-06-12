@@ -39,8 +39,12 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.rvPopularDestination.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        val adapter = DestinationAdapter()
+        val adapter = DestinationAdapter(itemLayoutResId = R.layout.item_destination)
         binding.rvPopularDestination.adapter = adapter
+
+        binding.rvRecommendedDestination.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val recommendedAdapter = DestinationAdapter(showRating = false, itemLayoutResId = R.layout.item_destination_2)
+        binding.rvRecommendedDestination.adapter = recommendedAdapter
     }
 
     private fun setupObservers() {
@@ -52,7 +56,9 @@ class HomeFragment : Fragment() {
                     }
                     is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
+                        // Update both RecyclerViews with data
                         getDestinations(result.data.data)
+                        getRecommendedDestinations(result.data.data)
                     }
                     is Result.Error -> {
                         binding.progressBar.visibility = View.GONE
@@ -65,11 +71,20 @@ class HomeFragment : Fragment() {
 
     private fun getDestinations(result: List<DataItem?>?) {
         result?.let {
-            val limitedList = it.filterNotNull().take(10)
+            val limitedList = it.filterNotNull().take(100)
             val adapter = binding.rvPopularDestination.adapter as DestinationAdapter
             adapter.submitList(limitedList)
         }
     }
+
+    private fun getRecommendedDestinations(result: List<DataItem?>?) {
+        result?.let {
+            val limitedList = it.filterNotNull().take(100)
+            val adapter = binding.rvRecommendedDestination.adapter as DestinationAdapter
+            adapter.submitList(limitedList)
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

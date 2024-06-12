@@ -13,7 +13,8 @@ import com.example.maliva.R
 import com.example.maliva.data.response.DataItem
 
 class DestinationAdapter(
-    private val showRating: Boolean = true
+    private val showRating: Boolean = true,
+    private val itemLayoutResId: Int // Layout resource ID for the item view
 ) : ListAdapter<DataItem, DestinationAdapter.DestinationViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -29,7 +30,7 @@ class DestinationAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DestinationViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_destination, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(itemLayoutResId, parent, false)
         return DestinationViewHolder(view)
     }
 
@@ -47,7 +48,7 @@ class DestinationAdapter(
 
         fun bind(destination: DataItem) {
             // Assuming you have an image loader library like Glide or Picasso
-//            Glide.with(itemView.context).load(destination.image).into(destinationImageView)
+            Glide.with(itemView.context).load(destination.images).into(destinationImageView)
             titleTextView.text = destination.destinationName
             locationTextView.text = destination.location?.place
             priceTextView.text = "${destination.pricing} IDR"

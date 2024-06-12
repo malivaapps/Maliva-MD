@@ -25,6 +25,9 @@ data class Location(
 
 data class DataItem(
 
+	@field:SerializedName("Description")
+	val description: String? = null,
+
 	@field:SerializedName("Category")
 	val category: String? = null,
 
@@ -34,11 +37,17 @@ data class DataItem(
 	@field:SerializedName("Address")
 	val address: String? = null,
 
-	@field:SerializedName("Pricing")
-	val pricing: Int? = null,
+	@field:SerializedName("Images")
+	val images: String? = null,
 
 	@field:SerializedName("Rating")
 	val rating: Any? = null,
+
+	@field:SerializedName("Facilities")
+	val facilities: String? = null,
+
+	@field:SerializedName("Pricing")
+	val pricing: Int? = null,
 
 	@field:SerializedName("id")
 	val id: String? = null,
@@ -53,8 +62,5 @@ data class DataItem(
 	val link: String? = null,
 
 	@field:SerializedName("Destination name")
-	val destinationName: String? = null,
-
-	@field:SerializedName("Facilities")
-	val facilities: String? = null
+	val destinationName: String? = null
 )

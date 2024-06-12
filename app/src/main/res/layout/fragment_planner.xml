@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_detail"
+    tools:context="view.planner.PlannerFragment">
+
+    <ViewFlipper
+        android:id="@+id/viewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Page 1 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_detail">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_button_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_tripPlanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/trip_planner"
+                android:textColor="@color/text_primary"
+                android:textSize="19sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_back" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="117.5dp"
+                android:layout_height="7dp"
+                android:layout_marginHorizontal="22dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/primary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_back" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="117.5dp"
+                android:layout_height="7dp"
+                android:layout_marginStart="6dp"
+                android:background="@color/text_secondary_lighter"
+                app:layout_constraintBottom_toBottomOf="@+id/view"
+                app:layout_constraintStart_toEndOf="@+id/view"
+                app:layout_constraintTop_toTopOf="@+id/view" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="118dp"
+                android:layout_height="7dp"
+                android:layout_marginStart="6dp"
+                android:background="@color/text_secondary_lighter"
+                app:layout_constraintBottom_toBottomOf="@+id/view2"
+                app:layout_constraintStart_toEndOf="@+id/view2"
+                app:layout_constraintTop_toTopOf="@+id/view2" />
+
+
+            <TextView
+                android:id="@+id/tv_numberplanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="22dp"
+                android:text="@string/numberplanner1"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="58sp"
+                android:textColor="@color/text_primary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view" />
+
+            <TextView
+                android:id="@+id/tv_plannerWho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="@string/plannerWho"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/text_primary"
+                android:textSize="20sp"
+                android:layout_marginTop="-20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_numberplanner" />
+
+            <TextView
+                android:id="@+id/tv_chooseWho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chooseWho"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="15sp"
+                android:textColor="@color/text_secondary_darker"
+                app:layout_constraintStart_toStartOf="@+id/tv_plannerWho"
+                app:layout_constraintTop_toBottomOf="@+id/tv_plannerWho" />
+
+            <LinearLayout
+                android:id="@+id/checkboxGroupTraveler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_chooseWho">
+
+                <include
+                    android:id="@+id/checkboxTraveler1"
+                    layout="@layout/checkbox_item" />
+
+                <include
+                    android:id="@+id/checkboxTraveler2"
+                    layout="@layout/checkbox_item" />
+
+                <include
+                    android:id="@+id/checkboxTraveler3"
+                    layout="@layout/checkbox_item" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/plannerButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/primary"
+                android:fontFamily="@font/poppins_semibold"
+                android:outlineSpotShadowColor="@android:color/transparent"
+                android:text="@string/planner_button"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:cornerRadius="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="386dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Page 2 -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_detail">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/btn_back2"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_button_back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_tripPlanner2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="@string/trip_planner"
+                    android:textColor="@color/text_primary"
+                    android:textSize="19sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/btn_back2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/btn_back2" />
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="117.5dp"
+                    android:layout_height="7dp"
+                    android:layout_marginHorizontal="22dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/primary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_back2" />
+
+                <View
+                    android:id="@+id/view6"
+                    android:layout_width="117.5dp"
+                    android:layout_height="7dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@color/primary"
+                    app:layout_constraintBottom_toBottomOf="@+id/view5"
+                    app:layout_constraintStart_toEndOf="@+id/view5"
+                    app:layout_constraintTop_toTopOf="@+id/view5" />
+
+                <View
+                    android:id="@+id/view7"
+                    android:layout_width="118dp"
+                    android:layout_height="7dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@color/text_secondary_lighter"
+                    app:layout_constraintBottom_toBottomOf="@+id/view6"
+                    app:layout_constraintStart_toEndOf="@+id/view6"
+                    app:layout_constraintTop_toTopOf="@+id/view6" />
+
+                <TextView
+                    android:id="@+id/tv_numberplanner2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="22dp"
+                    android:text="@string/numberplanner2"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textSize="58sp"
+                    android:textColor="@color/text_primary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view6" />
+
+                <TextView
+                    android:id="@+id/tv_plannerWhere"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/plannerWhere"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:layout_marginTop="-20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_numberplanner2" />
+
+                <TextView
+                    android:id="@+id/tv_chooseWhere"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chooseWhere"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_secondary_darker"
+                    app:layout_constraintStart_toStartOf="@+id/tv_plannerWhere"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_plannerWhere" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/spinner_region"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="13dp"
+                    android:elevation="0dp"
+                    app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_chooseWhere">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/spinnerRegion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:shadowColor="@android:color/transparent"
+                        android:background="@drawable/bg_edit_text"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="14sp"
+                        android:text="Choose your region"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_activities"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_activities"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="15.5sp"
+                    android:textColor="@color/text_primary"
+                    app:layout_constraintLeft_toLeftOf="@id/spinner_region"
+                    app:layout_constraintTop_toBottomOf="@id/spinner_region"
+                    android:layout_marginTop="20dp" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGrouActivities"
+                    app:chipSpacingHorizontal="10dp"
+                    app:chipSpacingVertical="-5dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_activities">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_1_activities"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="140dp"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:textAlignment="center"
+                        android:text="Shopping"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_2_activities"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="210dp"
+                        android:gravity="center_horizontal"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:textAlignment="center"
+                        android:text="Outdoor Adventures"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_3_activities"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="150dp"
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:text="Kids Friendly"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_4_activities"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="200dp"
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:text="Amusement Parks"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_5_activities"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="130dp"
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:text="Museums"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_6_activities"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="220dp"
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:text="Hiking &amp; Trekking"/>
+                </com.google.android.material.chip.ChipGroup>
+
+                <TextView
+                    android:id="@+id/tv_destination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_destination"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="15.5sp"
+                    android:textColor="@color/text_primary"
+                    app:layout_constraintLeft_toLeftOf="@id/chipGrouActivities"
+                    app:layout_constraintTop_toBottomOf="@id/chipGrouActivities"
+                    android:layout_marginTop="20dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/destinationEditTextLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginHorizontal="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_destination"
+                    tools:alpha="100">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/destinationEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_edit_text"
+                        android:ems="10"
+                        android:fontFamily="@font/poppins_medium"
+                        android:inputType="textEmailAddress"></androidx.appcompat.widget.AppCompatEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_tripName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_tripName"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="15.5sp"
+                    android:textColor="@color/text_primary"
+                    app:layout_constraintLeft_toLeftOf="@id/destinationEditTextLayout"
+                    app:layout_constraintTop_toBottomOf="@id/destinationEditTextLayout"
+                    android:layout_marginTop="20dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tripNameEditTextLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginHorizontal="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_tripName"
+                    tools:alpha="100">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/tripNameEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_edit_text"
+                        android:ems="10"
+                        android:fontFamily="@font/poppins_medium"
+                        android:inputType="textEmailAddress"></androidx.appcompat.widget.AppCompatEditText>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/plannerButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="24dp"
+                    android:backgroundTint="@color/primary"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:outlineSpotShadowColor="@android:color/transparent"
+                    android:text="@string/planner_button"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:cornerRadius="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tripNameEditTextLayout" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <!-- Page 3 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_detail">
+            <ImageView
+                android:id="@+id/btn_back3"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_button_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_tripPlanner3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/trip_planner"
+                android:textColor="@color/text_primary"
+                android:textSize="19sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_back3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_back3" />
+
+            <View
+                android:id="@+id/view8"
+                android:layout_width="117.5dp"
+                android:layout_height="7dp"
+                android:layout_marginHorizontal="22dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/primary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_back3" />
+
+            <View
+                android:id="@+id/view9"
+                android:layout_width="117.5dp"
+                android:layout_height="7dp"
+                android:layout_marginStart="6dp"
+                android:background="@color/primary"
+                app:layout_constraintBottom_toBottomOf="@+id/view8"
+                app:layout_constraintStart_toEndOf="@+id/view8"
+                app:layout_constraintTop_toTopOf="@+id/view8" />
+
+            <View
+                android:id="@+id/view10"
+                android:layout_width="118dp"
+                android:layout_height="7dp"
+                android:layout_marginStart="6dp"
+                android:background="@color/primary"
+                app:layout_constraintBottom_toBottomOf="@+id/view9"
+                app:layout_constraintStart_toEndOf="@+id/view9"
+                app:layout_constraintTop_toTopOf="@+id/view9" />
+
+            <TextView
+                android:id="@+id/tv_numberplanner3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/numberplanner3"
+                android:textColor="@color/text_primary"
+                android:textSize="58sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view9" />
+
+            <TextView
+                android:id="@+id/tv_plannerBudget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="-20dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/plannerBudget"
+                android:textColor="@color/text_primary"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_numberplanner3" />
+
+            <TextView
+                android:id="@+id/tv_chooseBudget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/chooseBudget"
+                android:textColor="@color/text_secondary_darker"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_plannerBudget"
+                app:layout_constraintTop_toBottomOf="@+id/tv_plannerBudget" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/plannerButton3"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/primary"
+                android:fontFamily="@font/poppins_semibold"
+                android:outlineSpotShadowColor="@android:color/transparent"
+                android:text="@string/planner_button"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/sliderPrice"
+                style="@style/Widget.App.Slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginHorizontal="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.27"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_chooseBudget"
+                app:trackHeight="8dp"
+                app:thumbStrokeWidth="5dp"
+                app:thumbStrokeColor="@color/white"
+                app:thumbWidth="30dp"
+                app:thumbHeight="30dp"
+                app:labelBehavior="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ViewFlipper>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

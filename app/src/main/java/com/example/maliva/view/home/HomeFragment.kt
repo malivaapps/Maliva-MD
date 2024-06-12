@@ -4,25 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.maliva.R
-import com.example.maliva.adapter.category.CategoryAdapter
-import com.example.maliva.adapter.category.CategoryItem
 import com.example.maliva.adapter.destination.DestinationAdapter
-import com.example.maliva.adapter.destination.DestinationItem
+import com.example.maliva.data.response.DataItem
+import com.example.maliva.data.state.Result
+import com.example.maliva.data.utils.ObtainViewModelFactory
 import com.example.maliva.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -30,42 +31,48 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Category RecyclerView setup
-        val categoryList = listOf(
-            CategoryItem("Beach", R.drawable.ic_beach),
-            CategoryItem("Mountain", R.drawable.ic_mountain),
-            CategoryItem("Forest", R.drawable.ic_forest)
-        )
-        val categoryAdapter = CategoryAdapter(categoryList)
-        binding.rvCategory.adapter = categoryAdapter
-        binding.rvCategory.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        viewModel = ObtainViewModelFactory.obtain(requireActivity())
 
-        // Destination RecyclerView setup for popular destinations
-        val popularDestinationList = listOf(
-            DestinationItem("Coban Rondo", "Batu, Malang", 25000, 4.7f, R.drawable.img_destination1),
-            DestinationItem("Mount Bromo", "Batu, Malang", 25000, 4.7f, R.drawable.img_destination2),
-            DestinationItem("Pink Beach", "Batu, Malang", 25000, 4.7f, R.drawable.img_destination3),
-            DestinationItem("Mangunan", "Batu, Malang", 25000, 4.7f, R.drawable.img_destination4)
-        )
-        val popularDestinationAdapter = DestinationAdapter(popularDestinationList, DestinationAdapter.VIEW_TYPE_POPULAR, true) // Show rating for popular destinations
-        binding.rvPopularDestination.adapter = popularDestinationAdapter
-        binding.rvPopularDestination.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-
-        // Destination RecyclerView setup for recommended destinations
-        val recommendedDestinationList = listOf(
-            DestinationItem("Coban Rondo", "Batu, Malang", 25000, 4.7f, R.drawable.img_destination1),
-            DestinationItem("Mount Bromo", "Batu, Malang", 25000, 4.7f, R.drawable.img_destination2),
-            DestinationItem("Pink Beach", "Batu, Malang", 25000, 4.7f, R.drawable.img_destination3),
-            DestinationItem("Mangunan", "Batu, Malang", 25000, 4.7f, R.drawable.img_destination4)
-        )
-        // Destination RecyclerView setup for recommended destinations
-        val recommendedDestinationAdapter = DestinationAdapter(recommendedDestinationList, DestinationAdapter.VIEW_TYPE_RECOMMENDED, false) // Don't show rating for recommended destinations
-        binding.rvRecommendedDestination.adapter = recommendedDestinationAdapter
-        binding.rvRecommendedDestination.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-
+        setupObservers()
+        setupRecyclerView()
     }
+
+    private fun setupRecyclerView() {
+        binding.rvPopularDestination.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val adapter = DestinationAdapter()
+        binding.rvPopularDestination.adapter = adapter
+    }
+
+    private fun setupObservers() {
+        viewModel.getAllDestination().observe(viewLifecycleOwner, Observer { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                    is Result.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        getDestinations(result.data.data)
+                    }
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(requireContext(), getString(R.string.title_signup), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
+    }
+
+    private fun getDestinations(result: List<DataItem?>?) {
+        result?.let {
+            val limitedList = it.filterNotNull().take(10)
+            val adapter = binding.rvPopularDestination.adapter as DestinationAdapter
+            adapter.submitList(limitedList)
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.rvPopularDestination.adapter = null
     }
 }
-

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/checkboxTraveler1LinearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:layout_marginTop="15dp"
+    android:background="@drawable/bg_checkbox">
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:checked="false"
+        app:buttonTint="@color/primary"
+        android:layout_gravity="center_vertical" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/primaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Just Me"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="15sp"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:id="@+id/secondaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A solo traveler in exploration"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary_darker" />
+    </LinearLayout>
+</LinearLayout>

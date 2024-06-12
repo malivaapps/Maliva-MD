@@ -5,36 +5,37 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.maliva.R
+import com.example.maliva.data.response.DataItem
 
 class DestinationAdapter(
-    private val destinationList: List<DestinationItem>,
-    private val viewType: Int,
     private val showRating: Boolean = true
-) : RecyclerView.Adapter<DestinationAdapter.DestinationViewHolder>() {
+) : ListAdapter<DataItem, DestinationAdapter.DestinationViewHolder>(DIFF_CALLBACK) {
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<DataItem>() {
+            override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DestinationViewHolder {
-        // Inflate item_destination.xml or item_saved.xml based on viewType
-        val layoutRes = when (viewType) {
-            VIEW_TYPE_POPULAR -> R.layout.item_destination
-            VIEW_TYPE_SAVED -> R.layout.item_saved
-            else -> R.layout.item_destination_2 // Default or additional view type
-        }
-        val view = LayoutInflater.from(parent.context).inflate(layoutRes, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_destination, parent, false)
         return DestinationViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: DestinationViewHolder, position: Int) {
-        val destination = destinationList[position]
+        val destination = getItem(position)
         holder.bind(destination)
-    }
-
-    override fun getItemCount(): Int = destinationList.size
-
-    override fun getItemViewType(position: Int): Int {
-        // Return the view type based on the passed viewType parameter
-        return viewType
     }
 
     inner class DestinationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -44,11 +45,12 @@ class DestinationAdapter(
         private val priceTextView: TextView = itemView.findViewById(R.id.priceTextView)
         private val ratingTextView: TextView? = itemView.findViewById(R.id.ratingTextView)
 
-        fun bind(destination: DestinationItem) {
-            destinationImageView.setImageResource(destination.image)
-            titleTextView.text = destination.title
-            locationTextView.text = destination.location
-            priceTextView.text = "${destination.price} IDR"
+        fun bind(destination: DataItem) {
+            // Assuming you have an image loader library like Glide or Picasso
+//            Glide.with(itemView.context).load(destination.image).into(destinationImageView)
+            titleTextView.text = destination.destinationName
+            locationTextView.text = destination.location?.place
+            priceTextView.text = "${destination.pricing} IDR"
             ratingTextView?.let {
                 if (showRating) {
                     it.text = destination.rating.toString()
@@ -57,11 +59,5 @@ class DestinationAdapter(
                 }
             }
         }
-    }
-
-    companion object {
-        const val VIEW_TYPE_POPULAR = 0
-        const val VIEW_TYPE_SAVED = 1
-        const val VIEW_TYPE_RECOMMENDED = 2
     }
 }

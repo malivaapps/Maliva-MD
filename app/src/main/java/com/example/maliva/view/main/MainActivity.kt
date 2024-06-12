@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.maliva.R
 import com.example.maliva.view.home.HomeFragment
-import com.example.maliva.view.saved.SavedFragment
+import com.example.maliva.view.planner.PlannerFragment
+//import com.example.maliva.view.saved.SavedFragment
 import com.example.maliva.view.trip.TripFragment
 import com.example.maliva.view.profile.ProfileFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import nl.joery.animatedbottombar.AnimatedBottomBar
 
 class MainActivity : AppCompatActivity() {
@@ -18,10 +20,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         bottomBar = findViewById(R.id.bottom_bar)
+        val fabGenerate: FloatingActionButton = findViewById(R.id.fab_generate)
 
         setupBottomBar()
         if (savedInstanceState == null) {
             loadFragment(HomeFragment())
+        }
+
+        fabGenerate.setOnClickListener {
+            showBottomSheet()
         }
     }
 
@@ -31,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                                        newIndex: Int, newTab: AnimatedBottomBar.Tab) {
                 when (newTab.id) {
                     R.id.navigation_home -> loadFragment(HomeFragment())
-                    R.id.navigation_saved -> loadFragment(SavedFragment())
+//                    R.id.navigation_saved -> loadFragment(SavedFragment())
                     R.id.navigation_trip -> loadFragment(TripFragment())
                     R.id.navigation_profile -> loadFragment(ProfileFragment())
                 }
@@ -44,5 +51,10 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.homeFragmentContainer, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    private fun showBottomSheet() {
+        val plannerFragment = PlannerFragment()
+        plannerFragment.show(supportFragmentManager, plannerFragment.tag)
     }
 }

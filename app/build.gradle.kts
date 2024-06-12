@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id ("kotlin-parcelize")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -50,11 +50,31 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    //datastore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    //viewmodel & livedata
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+
+    //maps
     implementation("com.google.android.gms:play-services-maps:+")
 
+    //fragment
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
+
+    //navigation bottom bar
     implementation("nl.joery.animatedbottombar:library:1.1.0")
 
+    //chip
+    implementation ("com.google.android.material:material:1.8.0")
 
+    //glide
+    implementation("com.github.bumptech.glide:glide:4.15.0")
 }

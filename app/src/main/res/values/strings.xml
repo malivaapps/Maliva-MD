@@ -76,5 +76,34 @@
     <string name="ok">OK</string>
 
     <string name="title_signup">Registration Form</string>
+    <string name="tv_search">Search Destination</string>
+    <string name="tv_filter">Filter</string>
+    <string name="tv_reset">reset</string>
+    <string name="tv_types">Activities Types</string>
+    <string name="tc_Shopping">Shopping</string>
+    <string name="tc_Outdoor">Outdoor Adventure</string>
+    <string name="tc_kids">Kids Friendly</string>
+    <string name="tc_Amusementpark">Ausement Park</string>
+    <string name="tc_museum">Museum</string>
+    <string name="tc_Hiking">Hiking</string>
+    <string name="tv_categgorie">Categories</string>
+    <string name="tc_beach">Beach</string>
+    <string name="tc_forest">Forest</string>
+    <string name="tc_Mountain">Mountain</string>
+    <string name="tc_lake">Lake</string>
+    <string name="tc_waterfall">Waterfall</string>
+    <string name="tc_Canyon">Canyon</string>
+    <string name="tv_price">Price</string>
+    <string name="tv_Minprice">Min Price</string>
+    <string name="tv_maxprice">Max Price</string>
+    <string name="tv_range">Range</string>
+    <string name="tv_minrange">Min Range</string>
+    <string name="tv_maxrange">Max Range</string>
+    <string name="tv_rating">Rating</string>
+    <string name="btn_filter">Apply</string>
 
+    <array name="initial_slider_values">
+        <item>20</item>
+        <item>70</item>
+    </array>
 </resources>

@@ -1,5 +1,7 @@
 package com.example.maliva.adapter.destination
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.maliva.R
 import com.example.maliva.data.response.DataItem
+import com.example.maliva.view.detail.DetailActivity
 
 class DestinationAdapter(
+    private val context: Context,
     private val showRating: Boolean = true,
-    private val itemLayoutResId: Int // Layout resource ID for the item view
+    private val itemLayoutResId: Int,
 ) : ListAdapter<DataItem, DestinationAdapter.DestinationViewHolder>(DIFF_CALLBACK) {
 
     companion object {
@@ -37,6 +41,13 @@ class DestinationAdapter(
     override fun onBindViewHolder(holder: DestinationViewHolder, position: Int) {
         val destination = getItem(position)
         holder.bind(destination)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, DetailActivity::class.java).apply {
+                putExtra("DESTINATION_DATA", destination)
+            }
+            context.startActivity(intent)
+        }
     }
 
     inner class DestinationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -47,7 +58,6 @@ class DestinationAdapter(
         private val ratingTextView: TextView? = itemView.findViewById(R.id.ratingTextView)
 
         fun bind(destination: DataItem) {
-            // Assuming you have an image loader library like Glide or Picasso
             Glide.with(itemView.context).load(destination.images).into(destinationImageView)
             titleTextView.text = destination.destinationName
             locationTextView.text = destination.location?.place

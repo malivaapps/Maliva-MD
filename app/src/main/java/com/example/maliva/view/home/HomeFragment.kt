@@ -39,11 +39,11 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.rvPopularDestination.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        val adapter = DestinationAdapter(itemLayoutResId = R.layout.item_destination)
+        val adapter = DestinationAdapter(requireContext(), itemLayoutResId = R.layout.item_destination)
         binding.rvPopularDestination.adapter = adapter
 
         binding.rvRecommendedDestination.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        val recommendedAdapter = DestinationAdapter(showRating = false, itemLayoutResId = R.layout.item_destination_2)
+        val recommendedAdapter = DestinationAdapter(requireContext(), showRating = false, itemLayoutResId = R.layout.item_destination_2)
         binding.rvRecommendedDestination.adapter = recommendedAdapter
     }
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomSuggestionChip" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@color/backgroundFilter</item>
+        <item name="chipStrokeColor">@color/primary</item>
+        <item name="chipStrokeWidth">1dp</item>
+
+    </style>
+</resources>

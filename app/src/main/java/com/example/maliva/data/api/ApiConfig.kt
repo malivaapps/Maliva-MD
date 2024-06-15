@@ -26,7 +26,7 @@ object ApiConfig {
             .addInterceptor(authInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://oval-fort-423105-v6.as.r.appspot.com/api/v1/")
+            .baseUrl("https://maliva-api-7sf23qxi6q-as.a.run.app/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

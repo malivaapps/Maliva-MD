@@ -2,6 +2,7 @@ package com.example.maliva.adapter.destination
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,8 @@ class DestinationAdapter(
     override fun onBindViewHolder(holder: DestinationViewHolder, position: Int) {
         val destination = getItem(position)
         holder.bind(destination)
+
+        Log.d("DestinationAdapter", "Location: ${destination.location?.place}")
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java).apply {

@@ -1,5 +1,6 @@
 package com.example.maliva.data.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.maliva.data.api.ApiConfig
@@ -7,6 +8,7 @@ import com.example.maliva.data.api.ApiService
 import com.example.maliva.data.preference.LoginPreferences
 import com.example.maliva.data.response.DataItem
 import com.example.maliva.data.response.DestinationResponse
+import com.example.maliva.data.response.GalleryResponse
 import com.example.maliva.data.response.SignInResponse
 import com.example.maliva.data.response.SignUpResponse
 import com.google.gson.Gson
@@ -77,6 +79,28 @@ class DestinationRepository (
         } catch (e: HttpException) {
             val response = e.response()?.errorBody()?.string()
             val error = Gson().fromJson(response, DestinationResponse::class.java)
+            emit(Result.Error(error.message ?: "Unknown error"))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+    fun getDestinationGallery(destinationId: String): LiveData<Result<GalleryResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val token = runBlocking {
+                loginPreferences.getToken().first()
+            }
+            if (token != null) {
+                apiService = ApiConfig.getApiService(token)
+                val response = apiService.getDestinationGallery(destinationId)
+                emit(Result.Success(response))
+            } else {
+                Log.e("GalleryViewModel", "Token is null")
+                emit(Result.Error("Token is null"))
+            }
+        } catch (e: HttpException) {
+            val response = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(response, GalleryResponse::class.java)
             emit(Result.Error(error.message ?: "Unknown error"))
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))

@@ -3,11 +3,17 @@ package com.example.maliva.adapter.gallery
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.maliva.R
+import com.example.maliva.data.response.DataItem
+import com.example.maliva.data.response.GalleryItem
+
 import com.google.android.material.imageview.ShapeableImageView
 
-class GalleryAdapter(private val images: List<Int>) : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
+
+class GalleryAdapter(private var galleryItems: List<GalleryItem>) : RecyclerView.Adapter<GalleryAdapter.GalleryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_gallery, parent, false)
@@ -15,16 +21,26 @@ class GalleryAdapter(private val images: List<Int>) : RecyclerView.Adapter<Galle
     }
 
     override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {
-        holder.bind(images[position])
+        val galleryItem = galleryItems[position]
+        holder.bind(galleryItem)
     }
 
-    override fun getItemCount(): Int = images.size
+    override fun getItemCount(): Int {
+        return galleryItems.size
+    }
 
-    class GalleryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val destinationImageView: ShapeableImageView = itemView.findViewById(R.id.destinationImageView)
+    fun updateGallery(newGalleryItems: List<GalleryItem>) {
+        galleryItems = newGalleryItems
+        notifyDataSetChanged()
+    }
 
-        fun bind(imageResId: Int) {
-            destinationImageView.setImageResource(imageResId)
+    inner class GalleryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val imageView: ImageView = itemView.findViewById(R.id.destinationImageView)
+
+        fun bind(galleryItem: GalleryItem) {
+            Glide.with(itemView.context)
+                .load(galleryItem.url)
+                .into(imageView)
         }
     }
 }

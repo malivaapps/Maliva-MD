@@ -16,9 +16,9 @@ class ViewPagerAdapter(fragmentActivity: FragmentActivity, private val destinati
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> DescriptionFragment.newInstance(destination.description, destination.link)
-            1 -> GalleryFragment.newInstance(destination.id.toString()) // Kirim ID destinasi ke GalleryFragment
-            2 -> ReviewFragment()
+            0 -> DescriptionFragment.newInstance(destination.description, destination.link, destination.facilities, destination.accessibility)
+            1 -> GalleryFragment.newInstance(destination.id.toString())
+            2 -> ReviewFragment.newInstance(destination.id.toString())
             else -> throw IllegalStateException("Unexpected position $position")
         }
     }

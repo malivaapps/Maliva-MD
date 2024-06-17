@@ -101,8 +101,12 @@
 <string name="tv_maxrange">Max Range</string>
 <string name="tv_rating">Rating</string>
 <string name="btn_filter">Apply</string>
+    <string name="default_date_text">Date is Null</string>
+    <string name="empty_image">No Image Selected</string>
+    <string name="tv_fasilitas">"Fasilitas yang Teresedia : "</string>
+    <string name="tv_aksebilitas">"Aksebilitas : "</string>
 
-<array name="initial_slider_values">
+    <array name="initial_slider_values">
     <item>20</item>
     <item>70</item>
 </array>

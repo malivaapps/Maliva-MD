@@ -25,4 +25,9 @@
         android:name="com.example.maliva.view.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/profileLoginFragment"
+        android:name="com.example.maliva.view.profilelogin.ProfileLoginFragment"
+        android:label="ProfilLogin"
+        tools:layout="@layout/fragment_profile_login" />
 </navigation>

@@ -1,15 +1,16 @@
 ﻿package com.example.maliva.data.api
 
+import com.example.maliva.data.preference.UserModel
 import com.example.maliva.data.response.DestinationResponse
 import com.example.maliva.data.response.GalleryResponse
 import com.example.maliva.data.response.ReviewUploadRequest
 import com.example.maliva.data.response.ReviewsResponse
 import com.example.maliva.data.response.SignInResponse
 import com.example.maliva.data.response.SignUpResponse
+
 import com.example.maliva.data.response.UploadImageResponse
 import com.example.maliva.data.response.UploadReviewResponse
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -18,6 +19,12 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.Response
+import retrofit2.http.DELETE
+import retrofit2.http.Header
+import retrofit2.http.Query
+import java.math.BigDecimal
+
 
 interface ApiService {
     @FormUrlEncoded
@@ -35,8 +42,17 @@ interface ApiService {
         @Field("password") password: String
     ): SignInResponse
 
+    @DELETE("authenticate/logout")
+    suspend fun logout(@Header("authorization") authHeader: String): Response<Void>
+
+    @GET("authenticte/user/profile")
+    suspend fun getUserProfile(
+        @Header("Authorization") authHeader: String
+    ): UserModel
+
     @GET("destination")
     suspend fun getAllDestination(): DestinationResponse
+
 
     @GET("destination/{id}/Gallery")
     suspend fun getDestinationGallery(
@@ -60,4 +76,34 @@ interface ApiService {
         @Path("id") destinationId: String,
         @Body request: ReviewUploadRequest
     ): UploadReviewResponse
+
+    @GET("destination")
+    suspend fun getCategory(
+        @Query("category") category: String? = null
+    ): DestinationResponse
+
+    @GET("destination")
+    suspend fun getType(
+        @Query("type") type: String? = null
+    ): DestinationResponse
+
+    @GET("destination")
+    suspend fun getPrice(
+        @Query("minPrice") minPrice: Int? = null,
+        @Query("maxPrice") maxPrice: Int? = null
+    ): DestinationResponse
+
+    @GET("destination")
+    suspend fun getRating(
+        @Query("rating") rating: Int? = null
+    ): DestinationResponse
+
+    @GET("destination")
+    suspend fun getRange(
+        @Query("lat") lat: BigDecimal? = null,
+        @Query("long") long: BigDecimal? = null,
+        @Query("minRange") minRange: Int? = null,
+        @Query("maxRange") maxRange: Int? = null
+    ): DestinationResponse
+
 }

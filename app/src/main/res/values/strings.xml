@@ -78,7 +78,7 @@
     <string name="title_signup">Registration Form</string>
     <string name="tv_search">Search Destination</string>
     <string name="tv_filter">Filter</string>
-    <string name="tv_reset">reset</string>
+    <string name="tv_reset">Reset</string>
     <string name="tv_types">Activities Types</string>
     <string name="tc_Shopping">Shopping</string>
     <string name="tc_Outdoor">Outdoor Adventure</string>
@@ -108,7 +108,23 @@
     <string name="submit">Submit</string>
 
     <array name="initial_slider_values">
+        <item>0</item>
         <item>20</item>
-        <item>70</item>
     </array>
+
+    <array name="initial_slider_range">
+        <item>0</item>
+        <item>20</item>
+    </array>
+
+    <string name="tv_username">Vahri Maulana</string>
+    <string name="tv_email">vhrimlna@gmail.com</string>"
+    <string name="editProfileButton">Edit Profile"</string>
+    <string name="logoutButton">Logout</string>
+
+    <string name="logout">Logout</string>
+    <string name="logout_alert">Are you sure you want to logout?</string>
+    <string name="cancel_logout">CANCEL</string>
+    <string name="error_loading_data">Error loading data</string>
+
 </resources>

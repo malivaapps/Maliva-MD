@@ -1,4 +1,3 @@
-// DescriptionFragment.kt
 package com.example.maliva.view.description
 
 import android.content.Intent
@@ -14,7 +13,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.maliva.R
-
 
 class DescriptionFragment : Fragment() {
 

@@ -56,7 +56,6 @@ class HomeFragment : Fragment() {
                     }
                     is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
-                        // Update both RecyclerViews with data
                         getDestinations(result.data.data)
                         getRecommendedDestinations(result.data.data)
                     }

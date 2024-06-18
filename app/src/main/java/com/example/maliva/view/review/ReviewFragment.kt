@@ -19,7 +19,11 @@ import com.example.maliva.data.api.ApiConfig
 import com.example.maliva.data.preference.LoginPreferences
 import com.example.maliva.data.preference.dataStore
 import com.example.maliva.data.repository.DestinationRepository
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 class ReviewFragment : Fragment() {
+
     private lateinit var binding: FragmentReviewBinding
     private lateinit var reviewsViewModel: ReviewsViewModel
     private lateinit var reviewAdapter: ReviewAdapter
@@ -47,6 +51,18 @@ class ReviewFragment : Fragment() {
 
         setupRecyclerView()
         loadReviewsData()
+
+//        // Add Review Button
+//        val addReviewButton = binding.reviewButton
+//        addReviewButton.setOnClickListener {
+//            showAddReviewDialog()
+//        }
+
+        // Review Button (normal button)
+        val reviewButton: MaterialButton = binding.reviewButton
+        reviewButton.setOnClickListener {
+            showAddReviewDialog()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -78,6 +94,12 @@ class ReviewFragment : Fragment() {
         })
     }
 
+    private fun showAddReviewDialog() {
+        val destinationImage = ""
+        val destinationLink = ""// Replace with actual destination image URL or resource
+        val dialog = ReviewDialogFragment.newInstance("", destinationId, destinationImage)
+        dialog.show(childFragmentManager, "ReviewDialogFragment")
+    }
     companion object {
         private const val ARG_DESTINATION_ID = "destination_id"
         private const val TAG = "ReviewFragment"

@@ -25,7 +25,7 @@ data class ReviewsItem(
     val rating: Float? = null,
 
     @SerializedName("username")
-    val username: Float? = null,
+    val username: String? = null,
     @SerializedName("userID")
     val userID: String? = null,
 

@@ -55,7 +55,7 @@ class GalleryFragment : Fragment() {
 
         destinationId = requireArguments().getString(ARG_DESTINATION_ID) ?: ""
         recyclerView = root.findViewById(R.id.rv_gallery)
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
         galleryAdapter = GalleryAdapter(emptyList())
         recyclerView.adapter = galleryAdapter
         progressBar = root.findViewById(R.id.progressBar)
@@ -66,10 +66,8 @@ class GalleryFragment : Fragment() {
         val viewModelFactory = GalleryViewModelFactory(repository)
         galleryViewModel = ViewModelProvider(this, viewModelFactory).get(GalleryViewModel::class.java)
 
-        // Load gallery data
         loadGalleryData()
 
-        // Set up gallery button
         val galleryButton: MaterialButton = root.findViewById(R.id.galleryButton)
         galleryButton.setOnClickListener {
             openGallery()

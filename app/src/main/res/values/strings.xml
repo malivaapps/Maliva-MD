@@ -1,113 +1,114 @@
 <resources>
-<string name="app_name">Maliva</string>
+    <string name="app_name">Maliva</string>
 
-<string name="title_home">Home</string>
-<string name="title_saved">Saved</string>
-<string name="title_trip">Trip</string>
-<string name="title_profile">Profile</string>
+    <string name="title_home">Home</string>
+    <string name="title_saved">Saved</string>
+    <string name="title_trip">Trip</string>
+    <string name="title_profile">Profile</string>
 
-<string name="valid_email">Please enter a valid email address</string>
-<string name="valid_password">Password must not be less than 8 characters</string>
+    <string name="valid_email">Please enter a valid email address</string>
+    <string name="valid_password">Password must not be less than 8 characters</string>
 
-<string name="inputname">Name</string>
-<string name="inputemail">Email Address</string>
-<string name="inputpass">Password</string>
+    <string name="inputname">Name</string>
+    <string name="inputemail">Email Address</string>
+    <string name="inputpass">Password</string>
 
-<string name="register_button_google">Continue with Google</string>
+    <string name="register_button_google">Continue with Google</string>
 
-<string name="register_title">Create Account</string>
-<string name="register_desc">Connect with us today!</string>
-<string name="register_button">Sign Up</string>
-<string name="orSignUp">Or Sign Up With</string>
-<string name="tvHaveAcc">Already have an account?</string>
-<string name="directToLogin">Login Now</string>
+    <string name="register_title">Create Account</string>
+    <string name="register_desc">Connect with us today!</string>
+    <string name="register_button">Sign Up</string>
+    <string name="orSignUp">Or Sign Up With</string>
+    <string name="tvHaveAcc">Already have an account?</string>
+    <string name="directToLogin">Login Now</string>
 
-<string name="login_title">Hi, Welcome Back</string>
-<string name="login_desc">Hello again, you\'ve been missed!</string>
-<string name="login_button">Login</string>
-<string name="orLogin">Or Login With</string>
-<string name="tvDontHaveAcc">Don\'t have an account?</string>
-<string name="directToRegister">Create Now</string>
+    <string name="login_title">Hi, Welcome Back</string>
+    <string name="login_desc">Hello again, you\'ve been missed!</string>
+    <string name="login_button">Login</string>
+    <string name="orLogin">Or Login With</string>
+    <string name="tvDontHaveAcc">Don\'t have an account?</string>
+    <string name="directToRegister">Create Now</string>
 
-<string name="tv_currentLocation">Current Location</string>
-<string name="hello_blank_fragment">Hello blank fragment</string>
-<string name="tv_location">Yogyakarta</string>
-<string name="tv_popularDestination">Popular Destination</string>
-<string name="seeMore">See More</string>
-<string name="tv_recommendDestination">Recommended Destination</string>
+    <string name="tv_currentLocation">Current Location</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_location">Yogyakarta</string>
+    <string name="tv_popularDestination">Popular Destination</string>
+    <string name="seeMore">See More</string>
+    <string name="tv_recommendDestination">Recommended Destination</string>
 
-<string name="tv_bookmark">Your Bookmark</string>
-<string name="tv_profile">Profile</string>
-<string name="notification">Notifications</string>
-<string name="languange">Languange</string>
-<string name="support">Support</string>
-<string name="dark_mode">Dark Mode</string>
+    <string name="tv_bookmark">Your Bookmark</string>
+    <string name="tv_profile">Profile</string>
+    <string name="notification">Notifications</string>
+    <string name="languange">Languange</string>
+    <string name="support">Support</string>
+    <string name="dark_mode">Dark Mode</string>
 
-<string name="description">Coban Rondo is a stunning waterfall located in Malang, Indonesia. It serves as a vital recreational spot for local communities, supporting tourism and providing a peaceful retreat. The waterfall is renowned for its lush, green surroundings and breathtaking scenery.</string>
-<string name="location">Location</string>
-<string name="map_button">Start a Journey</string>
+    <string name="description">Coban Rondo is a stunning waterfall located in Malang, Indonesia. It serves as a vital recreational spot for local communities, supporting tourism and providing a peaceful retreat. The waterfall is renowned for its lush, green surroundings and breathtaking scenery.</string>
+    <string name="location">Location</string>
+    <string name="map_button">Start a Journey</string>
 
-<string name="gallery_button">Add Picture</string>
+    <string name="gallery_button">Add Picture</string>
 
-<string name="review_button">Add Review</string>
-<string name="tv_review">Wow! Visiting Coban Rondo was an incredible experience. The walk to the waterfall was so peaceful, surrounded by lush greenery and diverse wildlife. Its amazing how this spot connects so many communities and supports their way of life. </string>
+    <string name="review_button">Add Review</string>
+    <string name="tv_review">Wow! Visiting Coban Rondo was an incredible experience. The walk to the waterfall was so peaceful, surrounded by lush greenery and diverse wildlife. Its amazing how this spot connects so many communities and supports their way of life. </string>
 
-<string name="trip_planner">Trip Planner</string>
-<string name="numberplanner1">01</string>
-<string name="plannerWho">Who are the travelers?</string>
-<string name="chooseWho">Choose your travelers</string>
-<string name="planner_button">Continue</string>
-<string name="numberplanner2">02</string>
-<string name="plannerWhere">Where is the destinations?</string>
-<string name="chooseWhere">Choose your destinations</string>
-<string name="tv_activities">Select the kind of activies that you want to do</string>
-<string name="tv_destination">Amount of destinations</string>
-<string name="tv_tripName">Name your trip plan</string>
-<string name="numberplanner3">03</string>
-<string name="plannerBudget">How much is your budget?</string>
-<string name="chooseBudget">Choose your budget</string>
+    <string name="trip_planner">Trip Planner</string>
+    <string name="numberplanner1">01</string>
+    <string name="plannerWho">Who are the travelers?</string>
+    <string name="chooseWho">Choose your travelers</string>
+    <string name="planner_button">Continue</string>
+    <string name="numberplanner2">02</string>
+    <string name="plannerWhere">Where is the destinations?</string>
+    <string name="chooseWhere">Choose your destinations</string>
+    <string name="tv_activities">Select the kind of activies that you want to do</string>
+    <string name="tv_destination">Amount of destinations</string>
+    <string name="tv_tripName">Name your trip plan</string>
+    <string name="numberplanner3">03</string>
+    <string name="plannerBudget">How much is your budget?</string>
+    <string name="chooseBudget">Choose your budget</string>
 
-<string name="registerSuccess">Success Register</string>
-<string name="startExplore">Start Exploring Malang Now!</string>
-<string name="loginNow">Login Now</string>
-<string name="registerError">There is an Error</string>
-<string name="loginError">There is an Error</string>
-<string name="loginSuccess">Success Login</string>
-<string name="ok">OK</string>
+    <string name="registerSuccess">Success Register</string>
+    <string name="startExplore">Start Exploring Malang Now!</string>
+    <string name="loginNow">Login Now</string>
+    <string name="registerError">There is an Error</string>
+    <string name="loginError">There is an Error</string>
+    <string name="loginSuccess">Success Login</string>
+    <string name="ok">OK</string>
 
-<string name="title_signup">Registration Form</string>
-<string name="tv_search">Search Destination</string>
-<string name="tv_filter">Filter</string>
-<string name="tv_reset">reset</string>
-<string name="tv_types">Activities Types</string>
-<string name="tc_Shopping">Shopping</string>
-<string name="tc_Outdoor">Outdoor Adventure</string>
-<string name="tc_kids">Kids Friendly</string>
-<string name="tc_Amusementpark">Ausement Park</string>
-<string name="tc_museum">Museum</string>
-<string name="tc_Hiking">Hiking</string>
-<string name="tv_categgorie">Categories</string>
-<string name="tc_beach">Beach</string>
-<string name="tc_forest">Forest</string>
-<string name="tc_Mountain">Mountain</string>
-<string name="tc_lake">Lake</string>
-<string name="tc_waterfall">Waterfall</string>
-<string name="tc_Canyon">Canyon</string>
-<string name="tv_price">Price</string>
-<string name="tv_Minprice">Min Price</string>
-<string name="tv_maxprice">Max Price</string>
-<string name="tv_range">Range</string>
-<string name="tv_minrange">Min Range</string>
-<string name="tv_maxrange">Max Range</string>
-<string name="tv_rating">Rating</string>
-<string name="btn_filter">Apply</string>
+    <string name="title_signup">Registration Form</string>
+    <string name="tv_search">Search Destination</string>
+    <string name="tv_filter">Filter</string>
+    <string name="tv_reset">reset</string>
+    <string name="tv_types">Activities Types</string>
+    <string name="tc_Shopping">Shopping</string>
+    <string name="tc_Outdoor">Outdoor Adventure</string>
+    <string name="tc_kids">Kids Friendly</string>
+    <string name="tc_Amusementpark">Ausement Park</string>
+    <string name="tc_museum">Museum</string>
+    <string name="tc_Hiking">Hiking</string>
+    <string name="tv_categgorie">Categories</string>
+    <string name="tc_beach">Beach</string>
+    <string name="tc_forest">Forest</string>
+    <string name="tc_Mountain">Mountain</string>
+    <string name="tc_lake">Lake</string>
+    <string name="tc_waterfall">Waterfall</string>
+    <string name="tc_Canyon">Canyon</string>
+    <string name="tv_price">Price</string>
+    <string name="tv_Minprice">Min Price</string>
+    <string name="tv_maxprice">Max Price</string>
+    <string name="tv_range">Range</string>
+    <string name="tv_minrange">Min Range</string>
+    <string name="tv_maxrange">Max Range</string>
+    <string name="tv_rating">Rating</string>
+    <string name="btn_filter">Apply</string>
     <string name="default_date_text">Date is Null</string>
     <string name="empty_image">No Image Selected</string>
     <string name="tv_fasilitas">"Fasilitas yang Teresedia : "</string>
     <string name="tv_aksebilitas">"Aksebilitas : "</string>
+    <string name="submit">Submit</string>
 
     <array name="initial_slider_values">
-    <item>20</item>
-    <item>70</item>
-</array>
+        <item>20</item>
+        <item>70</item>
+    </array>
 </resources>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Review"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:gravity="center"
+        android:paddingBottom="16dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Help us improve by telling us how was your experience with"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:gravity="center"
+        android:paddingBottom="16dp" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:textColor="@color/primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Coban orino"
+        android:textAppearance="?attr/textAppearanceHeadline4"
+        android:gravity="center"
+        android:paddingBottom="16dp" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_destination"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginVertical="15dp"
+        android:layout_marginStart="120dp"
+        android:scaleType="centerCrop"
+        android:gravity="center"
+        android:src="@drawable/img_destination1"
+        app:cornerRadius="8dp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1"
+        android:min="1"
+        android:max="5"
+        android:rating="1"
+        android:layout_gravity="center"/>
+
+    <EditText
+        android:id="@+id/reviewEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Write your review"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:gravity="top"
+        android:paddingTop="16dp" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary"
+        android:fontFamily="@font/poppins_semibold"
+        android:outlineSpotShadowColor="@android:color/transparent"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:cornerRadius="8dp"
+        android:text="@string/submit"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

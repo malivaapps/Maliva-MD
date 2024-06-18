@@ -2,7 +2,9 @@ package com.example.maliva.view.review
 
 import android.content.Context
 import android.media.Rating
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.maliva.data.repository.DestinationRepository
@@ -21,12 +23,29 @@ class ReviewsViewModel (private val repository: DestinationRepository) : ViewMod
         return repository.getDestinationReviews(reviewsId)
     }
 
-    fun submitReview(context: Context, destinationId: String, rating: Int, review: String): LiveData<Result<UploadReviewResponse>> = liveData(
-        Dispatchers.IO) {
-        emit(Result.Loading)
-        val result = withContext(Dispatchers.IO) {
-            repository.uploadReview(context, destinationId, rating, review).value
-        }
-        result?.let { emit(it) }
+    fun submitReview(
+        destinationId: String,
+        rating: Int,
+        review: String
+    ): LiveData<Result<Unit>> {
+        val resultLiveData = MutableLiveData<Result<Unit>>()
+        repository.uploadReview(destinationId, rating, review)
+            .observeForever { result ->
+                when (result) {
+                    is Result.Success -> {
+                        resultLiveData.value = Result.Success(Unit)
+                        Log.d("ReviewSubmission", "Response: $result")
+                    }
+                    is Result.Error -> {
+                        resultLiveData.value = Result.Error(result.error)
+                        Log.d("ReviewSubmission", "Response: $result")
+                    }
+                    is Result.Loading -> {
+                        Log.d("ReviewSubmission", "Response: $result")
+                        resultLiveData.value = Result.Loading
+                    }
+                }
+            }
+        return resultLiveData
     }
 }

@@ -19,12 +19,26 @@ class GalleryViewModel(private val repository: DestinationRepository) : ViewMode
     fun getDestinationGallery(destinationId: String): LiveData<Result<GalleryResponse>> {
         return repository.getDestinationGallery(destinationId)
     }
-    fun submitGallery(context: Context, destinationId: String, file: File?): LiveData<Result<UploadImageResponse>> = liveData(
-        Dispatchers.IO) {
-        emit(Result.Loading)
-        val result = withContext(Dispatchers.IO) {
-            repository.uploadImage(context, destinationId, file).value
-        }
-        result?.let { emit(it) }
+    fun submitGallery(
+        context: Context,
+        destinationId: String,
+        file: File?,
+    ): LiveData<Result<Unit>> {
+        val resultLiveData = MutableLiveData<Result<Unit>>()
+        repository.uploadImage(context, destinationId,file)
+            .observeForever { result ->
+                when (result) {
+                    is Result.Success -> {
+                        resultLiveData.value = Result.Success(Unit)
+                    }
+                    is Result.Error -> {
+                        resultLiveData.value = Result.Error(result.error)
+                    }
+                    is Result.Loading -> {
+                        resultLiveData.value = Result.Loading
+                    }
+                }
+            }
+        return resultLiveData
     }
 }

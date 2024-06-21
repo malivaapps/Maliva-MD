@@ -14,24 +14,42 @@ class SearchViewModel(private val destinationRepository: DestinationRepository) 
     private val _filteredDestinations = MutableLiveData<Result<List<DataItem>>>()
     val filteredDestinations: LiveData<Result<List<DataItem>>> get() = _filteredDestinations
 
+    private val _searchResults = MutableLiveData<Result<List<DataItem>>>()
+    val searchResults: LiveData<Result<List<DataItem>>> get() = _searchResults
+
+    fun searchDestinations(search: String) {
+        viewModelScope.launch {
+            _searchResults.value = Result.Loading
+            try {
+                val result = destinationRepository.searchDestinations(search)
+                _searchResults.value = result
+            } catch (e: Exception) {
+                _searchResults.value = Result.Error(e.message ?: "Unknown error")
+            }
+        }
+    }
+
     fun filterDestinationsByCategory(category: String) {
         viewModelScope.launch {
-            _filteredDestinations.value = destinationRepository.filterDestinationsByCategory(category)
+            _filteredDestinations.value = Result.Loading
+            try {
+                val result = destinationRepository.filterDestinationsByCategory(category)
+                _filteredDestinations.value = result
+            } catch (e: Exception) {
+                _filteredDestinations.value = Result.Error(e.message ?: "Unknown error")
+            }
         }
     }
 
     fun filterDestinations(query: String) {
         viewModelScope.launch {
-            _filteredDestinations.value = destinationRepository.filterDestinationsByQuery(query)
-        }
-    }
-
-    //use this function to filtering
-    fun filterDestinationByCategories(category: String) {
-        viewModelScope.launch {
-            _filteredDestinations.value = destinationRepository.filterDestinationByCategories(category)
+            _filteredDestinations.value = Result.Loading
+            try {
+                val result = destinationRepository.filterDestinationsByQuery(query)
+                _filteredDestinations.value = result
+            } catch (e: Exception) {
+                _filteredDestinations.value = Result.Error(e.message ?: "Unknown error")
+            }
         }
     }
 }
-
-

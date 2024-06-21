@@ -19,4 +19,15 @@ class LoginViewModel(private val destinationRepository: DestinationRepository) :
             destinationRepository.loginPref()
         }
     }
+    fun saveUsername(username: String) {
+        viewModelScope.launch {
+            destinationRepository.saveUsername(username)
+        }
+    }
+
+    fun saveEmail(email: String) {
+        viewModelScope.launch {
+            destinationRepository.saveEmail(email)
+        }
+    }
 }

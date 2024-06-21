@@ -15,6 +15,10 @@ data class FavoriteDestination(
     val location: String?,
     val pricing: Int?,
     val rating: Double?,
-    val imageUrl: String?
+    val description: String?,
+    val facilities: String?,
+    val accessibility: String?,
+    val imageUrl: String?,
+    val link: String?
 ) : Parcelable
 

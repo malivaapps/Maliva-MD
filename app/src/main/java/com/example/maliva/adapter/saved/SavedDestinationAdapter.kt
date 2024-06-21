@@ -1,5 +1,6 @@
 package com.example.maliva.adapter.destination
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.maliva.R
 import com.example.maliva.data.database.FavoriteDestination
+import com.example.maliva.view.detail.DetailActivity
 
 class SavedDestinationAdapter :
     ListAdapter<FavoriteDestination, SavedDestinationAdapter.SavedDestinationViewHolder>(DIFF_CALLBACK) {
@@ -44,13 +46,18 @@ class SavedDestinationAdapter :
         private val priceTextView: TextView = itemView.findViewById(R.id.priceTextView)
 
         fun bind(destination: FavoriteDestination) {
-
-            destinationImageView.setImageResource(0) // Clear previous image if needed
             Glide.with(itemView.context).load(destination.imageUrl).into(destinationImageView)
             titleTextView.text = destination.destinationName
             locationTextView.text = destination.location ?: ""
             priceTextView.text = "${destination.pricing ?: 0} IDR"
+
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, DetailActivity::class.java).apply {
+                    putExtra("SOURCE", "FAVORITE")
+                    putExtra("FAVORITE_DATA", destination)
+                }
+                itemView.context.startActivity(intent)
+            }
         }
     }
-
 }

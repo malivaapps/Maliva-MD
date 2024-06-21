@@ -15,10 +15,37 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "lo
 class LoginPreferences private constructor(private val dataStore: DataStore<Preferences>) {
     private val loginToken = stringPreferencesKey("token")
     private val loginStatus = booleanPreferencesKey("status")
+    private val queryKey = stringPreferencesKey("last_query")
+    private val usernameKey = stringPreferencesKey("username")
+    private val emailKey = stringPreferencesKey("email")
+
+    suspend fun saveLastQuery(query: String) {
+        dataStore.edit { preferences ->
+            preferences[queryKey] = query
+        }
+    }
+
+    fun getLastQuery(): Flow<String?> {
+        return dataStore.data.map { preferences ->
+            preferences[queryKey]
+        }
+    }
 
     suspend fun saveToken(token: String) {
         dataStore.edit { preferences ->
             preferences[loginToken] = token
+        }
+    }
+
+    suspend fun saveUsername(username: String) {
+        dataStore.edit { preferences ->
+            preferences[usernameKey] = username
+        }
+    }
+
+    suspend fun saveEmail(email: String) {
+        dataStore.edit { preferences ->
+            preferences[emailKey] = email
         }
     }
 
@@ -40,10 +67,24 @@ class LoginPreferences private constructor(private val dataStore: DataStore<Pref
         }
     }
 
+    fun getUsername(): Flow<String?> {
+        return dataStore.data.map { preferences ->
+            preferences[usernameKey]
+        }
+    }
+
+    fun getEmail(): Flow<String?> {
+        return dataStore.data.map { preferences ->
+            preferences[emailKey]
+        }
+    }
+
     suspend fun logout() {
         dataStore.edit { preferences ->
             preferences[loginStatus] = false
             preferences[loginToken] = ""
+            preferences[usernameKey] = ""
+            preferences[emailKey] = ""
         }
     }
 

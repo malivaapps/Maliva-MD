@@ -9,6 +9,7 @@
 
     <style name="ImageViewRoundedOverlay" parent="">
         <item name="cornerFamily">rounded</item>
+        <item name="colorPrimary">@color/primary</item>
         <item name="cornerSize">7%</item>
     </style>
 
@@ -69,6 +70,7 @@
         <!-- Other style attributes -->
     </style>
 
+
     <style name="customRatingBar"
         parent="android:style/Widget.Material.RatingBar.Small">
     </style>
@@ -82,6 +84,7 @@
         <item name="android:windowCloseOnTouchOutside">true</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
 
 
 </resources>

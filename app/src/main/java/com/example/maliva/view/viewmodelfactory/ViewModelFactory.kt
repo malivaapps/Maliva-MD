@@ -11,6 +11,7 @@ import com.example.maliva.view.gallery.GalleryViewModel
 import com.example.maliva.view.home.HomeViewModel
 import com.example.maliva.view.login.LoginViewModel
 import com.example.maliva.view.planner.PlannerViewModel
+import com.example.maliva.view.profile.ProfileViewModel
 import com.example.maliva.view.profilelogin.ProfileLoginViewModel
 import com.example.maliva.view.register.RegisterViewModel
 import com.example.maliva.view.review.ReviewsViewModel
@@ -43,6 +44,9 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(FilterViewModel::class.java) -> {
                 FilterViewModel(destinationRepository) as T
+            }
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(destinationRepository) as T
             }
             modelClass.isAssignableFrom(ReviewsViewModel::class.java) -> {
                 ReviewsViewModel(destinationRepository) as T

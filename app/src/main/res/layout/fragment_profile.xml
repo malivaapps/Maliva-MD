@@ -20,73 +20,74 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="34dp"
-        android:backgroundTint="@color/secondary"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="0dp"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_avatar"
+        app:shapeAppearanceOverlay="@style/RoundedImageViewWithStroke"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="40dp"
+        app:strokeWidth="2dp"
+        android:padding="4dp"
+        app:strokeColor="@color/text_primary"
+        android:src="@drawable/ic_avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/tv_username"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="17sp"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toEndOf="@+id/iv_avatar"
+        app:layout_constraintStart_toStartOf="@+id/iv_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/iv_avatar" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="18dp"
-                android:layout_marginTop="18dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Sign up to manage your trip plan and easily plan your next trip"
-                android:textColor="@color/text_primary"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-2dp"
+        android:text="@string/tv_email"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="13sp"
+        android:textColor="@color/text_secondary"
+        app:layout_constraintEnd_toEndOf="@+id/tv_username"
+        app:layout_constraintStart_toStartOf="@+id/tv_username"
+        app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/signupButton"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginHorizontal="18dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="18dp"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="@string/register_button"
-                android:textAllCaps="false"
-                android:textColor="@color/primary"
-                android:textSize="14sp"
-                app:cornerRadius="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
-                app:strokeColor="@color/primary"
-                app:strokeWidth="1dp"
-                tools:alpha="100" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/editProfileButton"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/primary"
+        android:fontFamily="@font/poppins_semibold"
+        android:outlineSpotShadowColor="@android:color/transparent"
+        android:text="@string/editProfileButton"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_email"
+        app:layout_constraintStart_toStartOf="@+id/tv_email"
+        app:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="44dp"
         android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="36dp"
         android:background="@color/text_secondary_lighter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"></View>
+        app:layout_constraintTop_toBottomOf="@id/editProfileButton"></View>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/pf_notifications"
@@ -183,11 +184,11 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="English"
-            android:textColor="@color/text_secondary"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/poppins_medium"
             android:paddingTop="3dp"
-            android:layout_marginEnd="8dp"
+            android:text="English"
+            android:textColor="@color/text_secondary"
             app:layout_constraintBottom_toBottomOf="@+id/iv_chevron2"
             app:layout_constraintEnd_toStartOf="@+id/iv_chevron2"
             app:layout_constraintTop_toTopOf="@+id/iv_chevron2" />
@@ -279,12 +280,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingEnd="5dp"
-            app:thumbTint="@drawable/switch_thumb_selector"
-            app:trackTint="@drawable/switch_track_selector"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:thumbTint="@drawable/switch_thumb_selector"
+            app:trackTint="@drawable/switch_track_selector" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="29dp"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="@color/red_secondary"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/logoutButton"
+        android:textAllCaps="false"
+        android:textColor="@color/red"
+        android:textSize="14sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pf_darkmode"
+        app:strokeColor="@color/red"
+        app:strokeWidth="1dp"
+        tools:alpha="100" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

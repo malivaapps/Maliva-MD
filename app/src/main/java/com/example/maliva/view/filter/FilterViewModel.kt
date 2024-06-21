@@ -1,7 +1,9 @@
 package com.example.maliva.view.filter
 
+
 import android.content.ContentValues.TAG
 import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -111,7 +113,5 @@ class FilterViewModel(
             _filteredDestinations.value = Result.Error("An unknown error occurred: ${e.message}")
         }
     }
-
-
 
 }

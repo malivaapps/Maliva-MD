@@ -1,31 +1,32 @@
 package com.example.maliva.data.response
 
+import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class SignInResponse(
+data class ProfileResponse(
 
 	@field:SerializedName("code")
 	val code: Int? = null,
 
 	@field:SerializedName("data")
-	val data: Data? = null,
+	val data: List<UpdateProfile>? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null,
 
 	@field:SerializedName("status")
 	val status: String? = null
-): Parcelable
-@Parcelize
-data class Data(
 
-	@field:SerializedName("session")
-	val session: String? = null,
+) : Parcelable
+
+@Parcelize
+data class UpdateProfile(
+
 	@field:SerializedName("username")
 	val username: String? = null,
+
 	@field:SerializedName("email")
 	val email: String? = null
-): Parcelable
+) : Parcelable

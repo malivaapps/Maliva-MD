@@ -58,6 +58,7 @@ class DescriptionFragment : Fragment() {
         descriptionTextView.text = description
         fasilitasTextView.text = fasilitas
         aksesibilitasTextView.text = aksesibilitas
+
         button.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
             startActivity(intent)

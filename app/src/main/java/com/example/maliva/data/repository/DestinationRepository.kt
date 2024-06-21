@@ -1,5 +1,6 @@
 package com.example.maliva.data.repository
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -8,6 +9,8 @@ import androidx.lifecycle.liveData
 import com.example.maliva.R
 import com.example.maliva.data.api.ApiConfig
 import com.example.maliva.data.api.ApiService
+import com.example.maliva.data.database.SearchRecomendation
+import com.example.maliva.data.database.SearchRecomendationDao
 import com.example.maliva.data.preference.LoginPreferences
 import com.example.maliva.data.utils.reduceFileImage
 
@@ -15,11 +18,16 @@ import com.example.maliva.data.preference.UserModel
 import com.example.maliva.data.response.DataItem
 import com.example.maliva.data.response.DestinationResponse
 import com.example.maliva.data.response.GalleryResponse
+
+import com.example.maliva.data.response.ProfileResponse
+import com.example.maliva.data.response.RecomendationResponse
+
 import com.example.maliva.data.response.PlanItem
 import com.example.maliva.data.response.ReviewUploadRequest
 import com.example.maliva.data.response.ReviewsResponse
 import com.example.maliva.data.response.SignInResponse
 import com.example.maliva.data.response.SignUpResponse
+import com.example.maliva.data.response.UpdateProfile
 import com.example.maliva.data.response.TripPlanDetailResponse
 import com.example.maliva.data.response.TripPlanResponse
 
@@ -42,7 +50,8 @@ import java.math.BigDecimal
 
 class DestinationRepository(
     private var apiService: ApiService,
-    private val loginPreferences: LoginPreferences
+    private val loginPreferences: LoginPreferences,
+
 ) {
     fun register(name: String, email: String, password: String): LiveData<Result<SignUpResponse>> = liveData {
         emit(Result.Loading)
@@ -74,7 +83,24 @@ class DestinationRepository(
         }
     }
 
+    fun userProfile(email: String, username: String): LiveData<Result<SignInResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.signin(email, username)
+            emit(Result.Success(response))
+        } catch (e: HttpException) {
+            val response = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(response, SignInResponse::class.java)
+            val errorMessage = error.message ?: "Unknown error"
+            emit(Result.Error(errorMessage))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message ?: "An unknown error occurred"))
+        }
+    }
+
     suspend fun saveToken(token: String) = loginPreferences.saveToken(token)
+    suspend fun saveUsername(username: String) = loginPreferences.saveUsername(username)
+    suspend fun saveEmail(email: String) = loginPreferences.saveEmail(email)
 
     suspend fun loginPref() = loginPreferences.loginPref()
 
@@ -494,6 +520,55 @@ class DestinationRepository(
         }
     }
 
+    private fun handleHttpException(e: HttpException): Result.Error {
+        val response = e.response()
+        val errorBody = response?.errorBody()?.string()
+        val error = Gson().fromJson(errorBody, DestinationResponse::class.java)
+        return Result.Error("HTTP Error: ${response?.code()}. ${error.message ?: "Unknown error"}")
+    }
+
+    fun updateProfile(): LiveData<Result<UpdateProfile>> = liveData {
+        emit(Result.Loading)
+        try {
+            val token = loginPreferences.getToken().first()
+            if (token != null) {
+                val response = apiService.getProfile("Bearer $token")
+                val updateProfile = response.data?.firstOrNull()
+                if (updateProfile != null) {
+                    emit(Result.Success(updateProfile))
+                } else {
+                    emit(Result.Error("No profile data available"))
+                }
+            } else {
+                emit(Result.Error("Token is null"))
+            }
+        } catch (e: HttpException) {
+            val response = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(response, ProfileResponse::class.java)
+            val errorMessage = error.message ?: "Unknown error"
+            emit(Result.Error(errorMessage))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message ?: "An unknown error occurred"))
+        }
+    }
+
+    suspend fun searchDestinations(search: String): Result<List<DataItem>> {
+        return try {
+            val response = apiService.getQuery(search)
+            Result.Success(response.data as List<DataItem>? ?: emptyList())
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(errorBody, DestinationResponse::class.java)
+            Result.Error(error.message ?: "Unknown error")
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "An unknown error occurred")
+        }
+    }
+
+    fun getRecommendations(query: String): LiveData<Result<RecomendationResponse>> = liveData {
+        Log.d(TAG, "getRecommendations: Starting request with search:")
+        try {
+
     suspend fun generateTripPlan(
         category: String?,
         type: String?,
@@ -560,6 +635,27 @@ class DestinationRepository(
                 val token = loginPreferences.getToken().first()
                 if (token != null) {
                     apiService = ApiConfig.getApiService(token)
+                    val response = apiService.getqueryRecomendations(query)
+                    emit(Result.Success(response))
+                } else {
+                    emit(Result.Error("Token is null"))
+                }
+            } else {
+                emit(Result.Error("User not logged in"))
+            }
+        } catch (e: HttpException) {
+            Log.e(TAG, "getRecommendations: HttpException - ${e.message}")
+            emit(handleHttpException(e))
+        } catch (e: IOException) {
+            Log.e(TAG, "getRecommendations: IOException - ${e.message}")
+            emit(Result.Error("Network Error: ${e.message}"))
+        } catch (e: Exception) {
+            Log.e(TAG, "getRecommendations: Exception - ${e.message}")
+            emit(Result.Error("Error: ${e.message}"))
+        }
+    }
+
+
                     val response = apiService.getTripPlan()
                     Result.Success(response)
                 } else {
@@ -602,10 +698,15 @@ class DestinationRepository(
             instance ?: synchronized(this) {
                 instance ?: DestinationRepository(
                     apiService,
-                    preferences
+                    preferences,
                 ).also {
                     instance = it
                 }
             }
     }
+}
+
+
+
+
 }

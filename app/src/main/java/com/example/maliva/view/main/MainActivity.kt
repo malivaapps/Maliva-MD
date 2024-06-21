@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.navigation_home -> loadFragment(HomeFragment())
                     R.id.navigation_trip -> loadFragment(TripFragment())
                     R.id.navigation_saved -> loadFragment(SavedFragment())
+
                     R.id.navigation_profile -> {
                         if (viewModel.isLoggedIn.value == true) {
                             loadFragment(ProfileLoginFragment())
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                             loadFragment(ProfileFragment())
                         }
                     }
+
                 }
             }
         })
@@ -70,4 +72,6 @@ class MainActivity : AppCompatActivity() {
         val plannerFragment = PlannerFragment()
         plannerFragment.show(supportFragmentManager, plannerFragment.tag)
     }
+
+
 }

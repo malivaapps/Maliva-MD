@@ -1,6 +1,9 @@
 package com.example.maliva.view.search
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -26,16 +29,17 @@ class SearchActivity : AppCompatActivity() {
         enableEdgeToEdge() // Enables edge-to-edge display
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.progressBar.visibility = View.GONE
 
         viewModel = ObtainViewModelFactory.obtain(this)
 
         setupRecyclerView()
         setupObservers()
+        setupListeners()
 
         // Retrieve filtered items from intent extras
         val filteredItems = intent.getSerializableExtra("FILTERED_ITEMS") as? ArrayList<DataItem>
         filteredItems?.let {
-            // Update RecyclerView with filtered data
             updateRecyclerView(it)
         }
 
@@ -43,31 +47,6 @@ class SearchActivity : AppCompatActivity() {
         val selectedCategory = intent.getStringExtra("SELECTED_CATEGORY")
         selectedCategory?.let {
             viewModel.filterDestinationsByCategory(it) // Initial filter by category
-        }
-
-        // Setup SearchView listener for query changes
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                // Handle query submission if needed
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let {
-                    viewModel.filterDestinations(it) // Trigger filtering on text change
-                }
-                return true
-            }
-        })
-
-        binding.fabFilter.setOnClickListener {
-            val bottomSheetFragment = FilterFragment()
-            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
-        }
-
-        // Setup click listener for back button
-        binding.btnBack.setOnClickListener {
-            finish() // Finish the activity when back button is clicked
         }
     }
 
@@ -78,28 +57,85 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        // Observe filteredDestinations LiveData from viewModel
-        viewModel.filteredDestinations.observe(this, Observer { result ->
+        viewModel.searchResults.observe(this, Observer { result ->
             when (result) {
                 is Result.Loading -> {
-                    showLoading(true) // Show loading state
+                    Log.d(TAG, "Search results loading")
+                    if (viewModel.filteredDestinations.value !is Result.Loading) {
+                        binding.progressBar.visibility = View.GONE
+                    }
                 }
                 is Result.Success -> {
-                    showLoading(false) // Hide loading state
-                    // Update RecyclerView with filtered data
+                    Log.d(TAG, "Search results success: ${result.data.size} items")
+                    binding.progressBar.visibility = View.GONE
                     updateRecyclerView(result.data)
                 }
                 is Result.Error -> {
-                    showLoading(false) // Hide loading state
-                    // Show error message or handle error state (optional)
+                    Log.e(TAG, "Error loading search results: ${result.error}")
+                    binding.progressBar.visibility = View.GONE
+                }
+            }
+        })
+
+        viewModel.filteredDestinations.observe(this, Observer { result ->
+            when (result) {
+                is Result.Loading -> {
+                    Log.d(TAG, "Filtered destinations loading")
+                    if (viewModel.searchResults.value !is Result.Loading) {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                }
+                is Result.Success -> {
+                    Log.d(TAG, "Filtered destinations success: ${result.data.size} items")
+                    binding.progressBar.visibility = View.GONE
+                    updateRecyclerView(result.data)
+                }
+                is Result.Error -> {
+                    Log.e(TAG, "Error loading filtered destinations: ${result.error}")
+                    binding.progressBar.visibility = View.GONE
                 }
             }
         })
     }
 
-    private fun updateRecyclerView(filteredItems: List<DataItem>) {
-        if (filteredItems.isNotEmpty()) {
-            adapter.submitList(filteredItems)
+    private fun setupListeners() {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    viewModel.searchDestinations(it)
+                    passQueryBackToHomeFragment(it)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    viewModel.searchDestinations(it)
+                }
+                return true
+            }
+        })
+
+        binding.fabFilter.setOnClickListener {
+            val bottomSheetFragment = FilterFragment()
+            bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+        }
+
+        binding.btnBack.setOnClickListener {
+            finish() // Finish the activity when back button is clicked
+        }
+    }
+
+    private fun passQueryBackToHomeFragment(query: String) {
+        val intent = Intent().apply {
+            putExtra("SEARCH_QUERY", query)
+        }
+        setResult(Activity.RESULT_OK, intent)
+    }
+
+    private fun updateRecyclerView(items: List<DataItem>) {
+        if (items.isNotEmpty()) {
+            adapter.submitList(items)
             binding.rvSearch.visibility = View.VISIBLE
             binding.imageNoItemsFound.visibility = View.GONE
         } else {
@@ -109,7 +145,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun showLoading(show: Boolean) {
-        binding.progressBar.visibility = if (show) View.VISIBLE else View.GONE
+    companion object {
+        private const val TAG = "SearchActivity"
     }
 }

@@ -9,37 +9,27 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.maliva.R
 import com.example.maliva.adapter.destination.DestinationAdapter
-import com.example.maliva.data.preference.LoginPreferences
-import com.example.maliva.data.preference.dataStore
 import com.example.maliva.data.response.DataItem
 import com.example.maliva.data.state.Result
 import com.example.maliva.data.utils.ObtainViewModelFactory
 import com.example.maliva.databinding.ActivitySearchBinding
 import com.example.maliva.view.filter.FilterFragment
-import com.example.maliva.view.home.HomeFragment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
     private lateinit var viewModel: SearchViewModel
     private lateinit var adapter: DestinationAdapter
-    private lateinit var loginPreferences: LoginPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge() // Enables edge-to-edge display
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.progressBar.visibility = View.GONE
-
-        loginPreferences = LoginPreferences.getInstance(this.dataStore)
 
         viewModel = ObtainViewModelFactory.obtain(this)
 
@@ -47,19 +37,17 @@ class SearchActivity : AppCompatActivity() {
         setupObservers()
         setupListeners()
 
+        // Retrieve filtered items from intent extras
         val filteredItems = intent.getSerializableExtra("FILTERED_ITEMS") as? ArrayList<DataItem>
         filteredItems?.let {
-            Log.d(TAG, "Filtered items received: ${it.size}")
             updateRecyclerView(it)
         }
 
         // Retrieve selected category from intent extras
         val selectedCategory = intent.getStringExtra("SELECTED_CATEGORY")
         selectedCategory?.let {
-            Log.d(TAG, "Selected category: $it")
-            viewModel.filterDestinationsByCategory(it)
+            viewModel.filterDestinationsByCategory(it) // Initial filter by category
         }
-
     }
 
     private fun setupRecyclerView() {
@@ -74,10 +62,7 @@ class SearchActivity : AppCompatActivity() {
                 is Result.Loading -> {
                     Log.d(TAG, "Search results loading")
                     if (viewModel.filteredDestinations.value !is Result.Loading) {
-                        Log.d(TAG, "Showing progress bar for search results")
                         binding.progressBar.visibility = View.GONE
-                    } else {
-                        Log.d(TAG, "Filtered destinations are also loading, waiting...")
                     }
                 }
                 is Result.Success -> {
@@ -97,10 +82,7 @@ class SearchActivity : AppCompatActivity() {
                 is Result.Loading -> {
                     Log.d(TAG, "Filtered destinations loading")
                     if (viewModel.searchResults.value !is Result.Loading) {
-                        Log.d(TAG, "Showing progress bar for filtered destinations")
                         binding.progressBar.visibility = View.VISIBLE
-                    } else {
-                        Log.d(TAG, "Search results are also loading, waiting...")
                     }
                 }
                 is Result.Success -> {
@@ -129,7 +111,6 @@ class SearchActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let {
                     viewModel.searchDestinations(it)
-
                 }
                 return true
             }
@@ -141,11 +122,9 @@ class SearchActivity : AppCompatActivity() {
         }
 
         binding.btnBack.setOnClickListener {
-            finish()
+            finish() // Finish the activity when back button is clicked
         }
     }
-
-
 
     private fun passQueryBackToHomeFragment(query: String) {
         val intent = Intent().apply {
@@ -155,7 +134,6 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun updateRecyclerView(items: List<DataItem>) {
-        Log.d(TAG, "Updating RecyclerView with ${items.size} items")
         if (items.isNotEmpty()) {
             adapter.submitList(items)
             binding.rvSearch.visibility = View.VISIBLE

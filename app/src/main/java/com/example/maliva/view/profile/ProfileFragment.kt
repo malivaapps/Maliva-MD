@@ -10,14 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.maliva.R
-import com.example.maliva.data.response.ProfileResponse
-import com.example.maliva.data.response.UpdateProfile
 import com.example.maliva.databinding.FragmentProfileBinding
-import com.example.maliva.databinding.FragmentProfileLoginBinding
 import com.example.maliva.view.register.RegisterActivity
 import com.example.maliva.data.state.Result
 import com.example.maliva.view.viewmodelfactory.ViewModelFactory
-
 
 class ProfileFragment : Fragment() {
 
@@ -38,7 +34,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize ViewModel using ViewModelFactory
+        // Initialize ViewModel using ViewModelProvider
         profileViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(requireContext())).get(ProfileViewModel::class.java)
 
         // Observe changes in updateProfileResponse

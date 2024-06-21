@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.example.maliva.R
 import com.example.maliva.data.api.ApiConfig
@@ -17,13 +18,18 @@ import com.example.maliva.data.preference.UserModel
 import com.example.maliva.data.response.DataItem
 import com.example.maliva.data.response.DestinationResponse
 import com.example.maliva.data.response.GalleryResponse
+
 import com.example.maliva.data.response.ProfileResponse
 import com.example.maliva.data.response.RecomendationResponse
+
+import com.example.maliva.data.response.PlanItem
 import com.example.maliva.data.response.ReviewUploadRequest
 import com.example.maliva.data.response.ReviewsResponse
 import com.example.maliva.data.response.SignInResponse
 import com.example.maliva.data.response.SignUpResponse
 import com.example.maliva.data.response.UpdateProfile
+import com.example.maliva.data.response.TripPlanDetailResponse
+import com.example.maliva.data.response.TripPlanResponse
 
 import com.example.maliva.data.response.UploadImageResponse
 import com.example.maliva.data.response.UploadReviewResponse
@@ -32,6 +38,7 @@ import retrofit2.HttpException
 import com.example.maliva.data.state.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -216,9 +223,9 @@ class DestinationRepository(
     }
 
     fun uploadReview(
-    destinationId: String,
-    rating: Int,
-    review: String
+        destinationId: String,
+        rating: Int,
+        review: String
     ): LiveData<Result<UploadReviewResponse>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
@@ -561,6 +568,68 @@ class DestinationRepository(
     fun getRecommendations(query: String): LiveData<Result<RecomendationResponse>> = liveData {
         Log.d(TAG, "getRecommendations: Starting request with search:")
         try {
+
+    suspend fun generateTripPlan(
+        category: String?,
+        type: String?,
+        child: String?,
+        budget: Int?,
+        lat: BigDecimal?,
+        long: BigDecimal?,
+        nrec: Int?,
+        title: String?
+    ): Result<TripPlanResponse> {
+        return try {
+            val token = loginPreferences.getToken().firstOrNull()
+            if (token == null) {
+                Result.Error("Token is null")
+            } else {
+                // Call the API to save the trip plan
+                val response = apiService.generateTripPlan(category, type, child, budget, lat, long, nrec, title)
+                Result.Success(response)
+            }
+        } catch (e: HttpException) {
+            // Handle HTTP exceptions (like 4xx, 5xx status codes)
+            val errorResponse = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(errorResponse, TripPlanResponse::class.java)
+            Result.Error(error.message ?: "Unknown error")
+        } catch (e: Exception) {
+            // Handle other exceptions
+            Result.Error(e.message ?: "Unknown error")
+        }
+    }
+
+    suspend fun saveTripPlan(
+        category: String?,
+        type: String?,
+        child: String?,
+        budget: Int?,
+        lat: BigDecimal?,
+        long: BigDecimal?,
+        nrec: Int?,
+        title: String?
+    ): TripPlanResponse {
+        return try {
+            val token = loginPreferences.getToken().firstOrNull()
+            if (token == null) {
+                throw RuntimeException("Token is null")
+            } else {
+                // Call the API to save the trip plan
+                apiService.saveTripPlan(category, type, child, budget, lat, long, nrec, title)
+            }
+        } catch (e: HttpException) {
+            // Handle HTTP exceptions (like 4xx, 5xx status codes)
+            val errorResponse = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(errorResponse, TripPlanResponse::class.java)
+            throw RuntimeException(error.message ?: "Unknown error")
+        } catch (e: Exception) {
+            // Handle other exceptions
+            throw RuntimeException(e.message ?: "Unknown error")
+        }
+    }
+
+    suspend fun getTripPlan(): Result<TripPlanDetailResponse> {
+        return try {
             val isLoggedIn = loginPreferences.getLoginStatus().first() ?: false
             if (isLoggedIn) {
                 val token = loginPreferences.getToken().first()
@@ -587,6 +656,36 @@ class DestinationRepository(
     }
 
 
+                    val response = apiService.getTripPlan()
+                    Result.Success(response)
+                } else {
+                    Result.Error("Token is null")
+                }
+            } else {
+                Result.Error("User not logged in")
+            }
+        } catch (e: HttpException) {
+            val response = e.response()?.errorBody()?.string()
+            val error = Gson().fromJson(response, DestinationResponse::class.java)
+            Result.Error(error.message ?: "Unknown error")
+        } catch (e: Exception) {
+            Result.Error(e.message ?: "Unknown error")
+        }
+    }
+
+
+    private fun DataItem.toPlanItem(): PlanItem {
+        // Example conversion, adjust fields as per your DataItem structure
+        return PlanItem(namaWisata = destinationName, harga = pricing ?: 0, alamat = address ?: "")
+    }
+
+
+    private fun handleHttpException(e: HttpException): Result.Error {
+        val response = e.response()
+        val errorBody = response?.errorBody()?.string()
+        val error = Gson().fromJson(errorBody, DestinationResponse::class.java)
+        return Result.Error("HTTP Error: ${response?.code()}. ${error.message ?: "Unknown error"}")
+    }
 
     companion object {
         @Volatile
@@ -609,3 +708,5 @@ class DestinationRepository(
 
 
 
+
+}

@@ -9,21 +9,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.maliva.R
-import com.example.maliva.databinding.FragmentProfileBinding
 import com.example.maliva.databinding.FragmentProfileLoginBinding
 import com.example.maliva.view.main.MainActivity
 import com.example.maliva.view.profilelogin.ProfileLoginViewModel
 import com.example.maliva.view.viewmodelfactory.ViewModelFactory
 
 class ProfileLoginFragment : Fragment() {
-    private lateinit var binding: FragmentProfileBinding
+    private lateinit var binding: FragmentProfileLoginBinding
     private lateinit var viewModel: ProfileLoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        binding = FragmentProfileLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 

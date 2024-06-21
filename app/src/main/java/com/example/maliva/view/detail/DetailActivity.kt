@@ -18,7 +18,6 @@ import com.example.maliva.data.response.DataItem
 import com.example.maliva.data.response.GalleryItem
 import com.example.maliva.data.repository.FavoriteDestinationRepository
 import com.example.maliva.data.response.Location
-import com.example.maliva.data.response.RecommendationsItem
 import com.example.maliva.view.viewmodelfactory.DetailViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
@@ -32,8 +31,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var destination: DataItem
 
     private val viewModel: DetailViewModel by viewModels {
-        val favoriteDestinationDao =
-            FavoriteDestinationDatabase.getDatabase(application).favoriteDestinationDao()
+        val favoriteDestinationDao = FavoriteDestinationDatabase.getDatabase(application).favoriteDestinationDao()
         val repository = FavoriteDestinationRepository(favoriteDestinationDao)
         DetailViewModelFactory(repository)
     }
@@ -57,8 +55,7 @@ class DetailActivity : AppCompatActivity() {
             }
 
             "RECOMMENDATION" -> {
-                val recommendation =
-                    intent.getParcelableExtra<RecommendationsItem>("RECOMMENDATION_DATA")
+                val recommendation = intent.getParcelableExtra<RecommendationsItem>("RECOMMENDATION_DATA")
                 if (recommendation != null) {
                     destination = convertRecommendationToDestination(recommendation)
                 } else {
@@ -89,6 +86,7 @@ class DetailActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             finish()
         }
+
         updateUI()
 
         // Initialize ViewPager and TabLayout

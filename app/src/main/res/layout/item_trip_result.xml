@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardElevation="0dp"
+    app:cardCornerRadius="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_destination">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/destinationImageView"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_marginVertical="15dp"
+            android:layout_marginStart="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_destination1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ImageViewRoundedOverlay" />
+
+        <TextView
+            android:id="@+id/priceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingTop="2dp"
+            android:layout_marginTop="1dp"
+            android:text="25.000 IDR"
+            android:textColor="@color/primary"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Kapuas River"
+            android:textColor="@color/text_primary"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/destinationImageView"
+            app:layout_constraintTop_toTopOf="@+id/destinationImageView" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@+id/priceTextView"
+            app:layout_constraintTop_toBottomOf="@+id/priceTextView"
+            app:srcCompat="@drawable/ic_location" />
+
+        <TextView
+            android:id="@+id/locationTextView"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingTop="2dp"
+            android:layout_marginStart="4dp"
+            android:text="Batu, Malang"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+        <TextView
+            android:id="@+id/tv_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingTop="5dp"
+            android:text="/person"
+            android:textColor="@color/text_secondary"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/priceTextView"
+            app:layout_constraintStart_toEndOf="@+id/priceTextView"
+            app:layout_constraintTop_toTopOf="@+id/priceTextView"
+            app:layout_constraintVertical_bias="0.333" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

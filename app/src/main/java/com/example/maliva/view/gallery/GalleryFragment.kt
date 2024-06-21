@@ -22,6 +22,7 @@ import com.example.maliva.data.preference.LoginPreferences
 import com.example.maliva.data.preference.dataStore
 import com.example.maliva.data.repository.DestinationRepository
 import com.example.maliva.data.state.Result
+import com.example.maliva.data.utils.ObtainViewModelFactory
 import com.example.maliva.data.utils.uriToFile
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
@@ -31,7 +32,7 @@ import java.io.File
 
 class GalleryFragment : Fragment() {
 
-    private lateinit var galleryViewModel: GalleryViewModel
+    private lateinit var viewModel: GalleryViewModel
     private lateinit var galleryAdapter: GalleryAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var destinationId: String
@@ -63,8 +64,7 @@ class GalleryFragment : Fragment() {
         val apiService = ApiConfig.getApiService("")
         val loginPreferences = LoginPreferences.getInstance(requireContext().dataStore)
         val repository = DestinationRepository.getInstance(apiService, loginPreferences)
-        val viewModelFactory = GalleryViewModelFactory(repository)
-        galleryViewModel = ViewModelProvider(this, viewModelFactory).get(GalleryViewModel::class.java)
+        viewModel = ObtainViewModelFactory.obtain(requireActivity())
 
         loadGalleryData()
 
@@ -82,7 +82,7 @@ class GalleryFragment : Fragment() {
 
     private fun uploadImage() {
         imageFile?.let {
-            galleryViewModel.submitGallery(requireContext(), destinationId, it).observe(viewLifecycleOwner, Observer { result ->
+            viewModel.submitGallery(requireContext(), destinationId, it).observe(viewLifecycleOwner, Observer { result ->
                 when (result) {
                     is Result.Loading -> {
                         progressBar.visibility = View.VISIBLE
@@ -117,7 +117,7 @@ class GalleryFragment : Fragment() {
     }
 
     private fun loadGalleryData() {
-        galleryViewModel.getDestinationGallery(destinationId).observe(viewLifecycleOwner, Observer { result ->
+        viewModel.getDestinationGallery(destinationId).observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Result.Loading -> {
                     progressBar.visibility = View.VISIBLE

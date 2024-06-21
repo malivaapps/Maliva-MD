@@ -1,79 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your Review"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="18sp"
+        android:layout_marginTop="24dp"
         android:textAppearance="?attr/textAppearanceHeadline6"
-        android:gravity="center"
-        android:paddingBottom="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
+        android:id="@+id/textView11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Help us improve by telling us how was your experience with"
-        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/poppins_medium"
         android:gravity="center"
-        android:paddingBottom="16dp" />
+        android:text="Help us improve by telling us how was your experience with"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
     <TextView
         android:id="@+id/tv_name"
-        android:textColor="@color/primary"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Coban orino"
-        android:textAppearance="?attr/textAppearanceHeadline4"
-        android:gravity="center"
-        android:paddingBottom="16dp" />
+        android:text="Coban Orino"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/primary"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_destination"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginVertical="15dp"
-        android:layout_marginStart="120dp"
-        android:scaleType="centerCrop"
         android:gravity="center"
+        android:scaleType="centerCrop"
         android:src="@drawable/img_destination1"
-        app:cornerRadius="8dp" />
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name"
+        app:shapeAppearanceOverlay="@style/ImageViewRoundedOverlay" />
 
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numStars="5"
-        android:stepSize="1"
-        android:min="1"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/primary"
+        android:layout_marginTop="24dp"
         android:max="5"
+        android:min="1"
+        android:numStars="5"
         android:rating="1"
-        android:layout_gravity="center"/>
+        android:stepSize="1.0"
+        android:isIndicator="false"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="@+id/iv_destination"
+        app:layout_constraintStart_toStartOf="@+id/iv_destination"
+        app:layout_constraintTop_toBottomOf="@+id/iv_destination" />
 
     <EditText
         android:id="@+id/reviewEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="18dp"
+        android:gravity="top"
+        android:background="@drawable/bg_destination"
         android:hint="Write your review"
         android:inputType="textMultiLine"
         android:minLines="3"
-        android:gravity="top"
-        android:paddingTop="16dp" />
+        android:padding="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="24dp"
         android:backgroundTint="@color/primary"
         android:fontFamily="@font/poppins_semibold"
         android:outlineSpotShadowColor="@android:color/transparent"
+        android:text="@string/submit"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:cornerRadius="8dp"
-        android:text="@string/submit"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reviewEditText" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

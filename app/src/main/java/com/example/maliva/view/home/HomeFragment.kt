@@ -1,7 +1,6 @@
 package com.example.maliva.view.home
 
 import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -54,7 +53,6 @@ class HomeFragment : Fragment(), CategoryAdapter.OnCategoryClickListener {
         setupRecyclerViews()
         setupObservers()
         setupSearchViewClickListener()
-
         fetchLastSearchQueryAndRecommendations()
     }
 
@@ -168,25 +166,14 @@ class HomeFragment : Fragment(), CategoryAdapter.OnCategoryClickListener {
     private fun setupSearchViewClickListener() {
         binding.searchView.setOnClickListener {
             val intent = Intent(requireContext(), SearchActivity::class.java)
-            startActivityForResult(intent, SEARCH_REQUEST_CODE)
+            startActivity(intent)
         }
     }
 
     override fun onCategoryClick(category: String) {
         val intent = Intent(requireContext(), SearchActivity::class.java)
         intent.putExtra("SELECTED_CATEGORY", category)
-        startActivityForResult(intent, SEARCH_REQUEST_CODE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SEARCH_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val query = data?.getStringExtra("SEARCH_QUERY")
-            query?.let {
-                Log.d(TAG, "Received search query from SearchActivity: $it")
-                viewModel.getRecommendations(it)
-            }
-        }
+        startActivity(intent)
     }
 
     override fun onDestroyView() {
@@ -197,6 +184,5 @@ class HomeFragment : Fragment(), CategoryAdapter.OnCategoryClickListener {
 
     companion object {
         private const val TAG = "HomeFragment"
-        private const val SEARCH_REQUEST_CODE = 100
     }
 }

@@ -61,7 +61,12 @@ data class DataItem(
 	val url: String? = null,
 
 	@SerializedName("Nama Wisata")
-	val destinationName: String? = null
+	val destinationName: String? = null,
+
+	@SerializedName("title")
+	val title: String? = null
+
+
 ): Parcelable
 
 @Parcelize

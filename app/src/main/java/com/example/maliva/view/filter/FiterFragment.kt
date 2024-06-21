@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -86,6 +87,16 @@ class FilterFragment : BottomSheetDialogFragment() {
                 // Update MinPrice and MaxPrice EditTexts with formatted text
                 binding.MinPrice.editText?.setText(currencyFormat.format(minValue))
                 binding.MaxPrice.editText?.setText(currencyFormat.format(maxValue))
+            }
+        }
+
+        binding.srPrice.apply {
+            valueFrom = 0f
+            valueTo = 120000f
+            stepSize = 1000f
+            setValues(0f, 120000f)
+            setLabelFormatter { value ->
+                currencyFormat.format(value.toInt())
             }
         }
 
@@ -317,28 +328,56 @@ class FilterFragment : BottomSheetDialogFragment() {
     }
 
     private fun applyFilters() {
-//        val minPrice = binding.srPrice.values[0].toInt()
-//        val maxPrice = binding.srPrice.values[1].toInt()
-//
-//        // Perform price filtering
-//        viewModel.viewModelScope.launch {
-//            viewModel.filterDestinationsByPrice(minPrice, maxPrice)
-//        }
+        // Obtain the current price range values
+        val minPrice = binding.srPrice.values[0].toInt()
+        val maxPrice = binding.srPrice.values[1].toInt()
 
-        // Notify SearchActivity with filtered data if applicable
+        // Launch a coroutine to filter by price separately
+        viewModel.viewModelScope.launch {
+            viewModel.filterDestinationsByPrice(minPrice, maxPrice)
+        }
+
+        // Observe filteredDestinations to apply all filters including price
         viewModel.filteredDestinations.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Result.Success -> {
-                    val filteredItems = result.data
-                    if (filteredItems.isNotEmpty()) {
-                        Log.d(TAG, "Filtered items: $filteredItems")
-                        // Pass filteredItems to SearchActivity
-                        sendFilteredItemsToSearchActivity(filteredItems)
-                    } else {
-                        Log.d(TAG, "No filtered items found")
-                        // Handle empty filtered items scenario if necessary
-                        sendFilteredItemsToSearchActivity(emptyList()) // Send empty list
+                    var filteredItems = result.data
+
+                    // Apply category filter if selectedCategories is not empty
+                    val selectedCategories = getSelectedCategories()
+                    if (selectedCategories.isNotEmpty()) {
+                        filteredItems = filteredItems.filter { item ->
+                            selectedCategories.any { category ->
+                                item.category?.contains(category, ignoreCase = true) ?: false
+                            }
+                        }
                     }
+
+                    // Apply type filter if selectedTypes is not empty
+                    val selectedTypes = getSelectedTypes()
+                    if (selectedTypes.isNotEmpty()) {
+                        filteredItems = filteredItems.filter { item ->
+                            selectedTypes.any { type ->
+                                item.activities?.contains(type, ignoreCase = true) ?: false
+                            }
+                        }
+                    }
+
+                    // Apply rating filter
+                    val selectedRating = getSelectedRating()
+                    if (selectedRating != null) {
+                        filteredItems = filteredItems.filter { item ->
+                            item.rating!! >= selectedRating && item.rating < (selectedRating + 1.0)
+                        }
+                    }
+
+//                    val minValue = binding.srRange.values[0].toInt()
+//                    val maxValue = binding.srRange.values[1].toInt()
+//
+//                    fetchCurrentLocationAndFilter(minValue, maxValue)
+
+                    // Pass filtered items to SearchActivity
+                    sendFilteredItemsToSearchActivity(filteredItems)
                 }
 
                 is Result.Error -> {
@@ -353,6 +392,50 @@ class FilterFragment : BottomSheetDialogFragment() {
             }
         })
     }
+
+
+    private fun getSelectedRating(): Int? {
+        val checkedRating = listOf(
+            binding.cbRating1,
+            binding.cbRating2,
+            binding.cbRating3,
+            binding.cbRating4,
+            binding.cbRating5
+        ).firstOrNull { it.isChecked }
+
+        return when (checkedRating) {
+            binding.cbRating1 -> 1
+            binding.cbRating2 -> 2
+            binding.cbRating3 -> 3
+            binding.cbRating4 -> 4
+            binding.cbRating5 -> 5
+            else -> null
+        }
+    }
+
+
+    private fun getSelectedCategories(): List<String> {
+        val selectedCategories = mutableListOf<String>()
+        for (i in 0 until binding.chipGroup6.childCount) {
+            val chip = binding.chipGroup6.getChildAt(i) as Chip
+            if (chip.isChecked) {
+                selectedCategories.add(chip.text.toString().toLowerCase(Locale.ROOT))
+            }
+        }
+        return selectedCategories
+    }
+
+    private fun getSelectedTypes(): List<String> {
+        val selectedTypes = mutableListOf<String>()
+        for (i in 0 until binding.chipActivities.childCount) {
+            val chip = binding.chipActivities.getChildAt(i) as Chip
+            if (chip.isChecked) {
+                selectedTypes.add(chip.text.toString().toLowerCase(Locale.ROOT))
+            }
+        }
+        return selectedTypes
+    }
+
 
 
     private fun sendFilteredItemsToSearchActivity(filteredItems: List<DataItem>) {

@@ -63,7 +63,7 @@
 
             <TextView
                 android:id="@+id/titleTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
@@ -98,11 +98,12 @@
 
             <TextView
                 android:id="@+id/locationTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:fontFamily="@font/poppins_medium"
                 android:paddingTop="2dp"
+
                 android:text="Batu, Malang"
                 android:textColor="@color/text_secondary"
                 android:textSize="14.5sp"

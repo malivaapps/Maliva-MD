@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this)).get(ProfileLoginViewModel::class.java)
 
-
         bottomBar = findViewById(R.id.bottom_bar)
         val fabGenerate: FloatingActionButton = findViewById(R.id.fab_generate)
 
@@ -48,7 +47,15 @@ class MainActivity : AppCompatActivity() {
                     R.id.navigation_home -> loadFragment(HomeFragment())
                     R.id.navigation_trip -> loadFragment(TripFragment())
                     R.id.navigation_saved -> loadFragment(SavedFragment())
-                    R.id.navigation_profile -> loadFragment(ProfileFragment())
+
+                    R.id.navigation_profile -> {
+                        if (viewModel.isLoggedIn.value == true) {
+                            loadFragment(ProfileLoginFragment())
+                        } else {
+                            loadFragment(ProfileFragment())
+                        }
+                    }
+
                 }
             }
         })

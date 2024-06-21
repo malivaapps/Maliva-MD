@@ -1,6 +1,7 @@
-﻿package com.example.maliva.data.api
+package com.example.maliva.data.api
 
 import com.example.maliva.data.preference.UserModel
+import com.example.maliva.data.response.DataTrip
 import com.example.maliva.data.response.DestinationResponse
 import com.example.maliva.data.response.GalleryResponse
 import com.example.maliva.data.response.ProfileResponse
@@ -9,7 +10,8 @@ import com.example.maliva.data.response.ReviewUploadRequest
 import com.example.maliva.data.response.ReviewsResponse
 import com.example.maliva.data.response.SignInResponse
 import com.example.maliva.data.response.SignUpResponse
-
+import com.example.maliva.data.response.TripPlanDetailResponse
+import com.example.maliva.data.response.TripPlanResponse
 import com.example.maliva.data.response.UploadImageResponse
 import com.example.maliva.data.response.UploadReviewResponse
 import okhttp3.MultipartBody
@@ -27,7 +29,6 @@ import retrofit2.http.Header
 import retrofit2.http.PUT
 import retrofit2.http.Query
 import java.math.BigDecimal
-
 
 interface ApiService {
     @FormUrlEncoded
@@ -55,7 +56,6 @@ interface ApiService {
 
     @GET("destination")
     suspend fun getAllDestination(): DestinationResponse
-
 
     @GET("destination/{id}/Gallery")
     suspend fun getDestinationGallery(
@@ -123,10 +123,35 @@ interface ApiService {
     suspend fun getRecommendations(
     ): RecomendationResponse
 
-
     @GET("authenticate/profile")
     suspend fun getProfile(
         @Header("Authorization") token: String
     ): ProfileResponse
 
+    @GET("trip/planner")
+    suspend fun generateTripPlan(
+        @Query("category") category: String? = null,
+        @Query("type") type: String? = null,
+        @Query("child") child: String? = null,
+        @Query("budget") budget: Int? = null,
+        @Query("lat") lat: BigDecimal? = null,
+        @Query("long") long: BigDecimal? = null,
+        @Query("nrec") nrec: Int? = null,
+        @Query("title") title: String? = null
+    ): TripPlanResponse
+
+    @POST("trip/storage")
+    suspend fun saveTripPlan(
+        @Query("category") category: String? = null,
+        @Query("type") type: String? = null,
+        @Query("child") child: String? = null,
+        @Query("budget") budget: Int? = null,
+        @Query("lat") lat: BigDecimal? = null,
+        @Query("long") long: BigDecimal? = null,
+        @Query("nrec") nrec: Int? = null,
+        @Query("title") title: String? = null,
+    ): TripPlanResponse
+
+    @GET("trip/storage")
+    suspend fun getTripPlan(): TripPlanDetailResponse
 }

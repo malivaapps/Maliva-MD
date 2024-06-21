@@ -11,14 +11,20 @@
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:enableOnBackInvokedCallback="true"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Maliva"
         tools:targetApi="31">
+        <activity
+            android:name=".view.tripplandetail.TripPlanDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.tripresult.TripResultActivity"
+            android:exported="false" />
         <activity
             android:name=".view.search.SearchActivity"
             android:exported="false" />
@@ -26,10 +32,10 @@
             android:name=".view.detail.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".view.login.LoginActivity"
+            android:name=".view.register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".view.register.RegisterActivity"
+            android:name=".view.login.LoginActivity"
             android:exported="false" />
 
         <activity

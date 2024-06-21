@@ -7,12 +7,17 @@ import com.example.maliva.data.di.Injection
 import com.example.maliva.data.preference.LoginPreferences
 import com.example.maliva.data.repository.DestinationRepository
 import com.example.maliva.view.filter.FilterViewModel
+import com.example.maliva.view.gallery.GalleryViewModel
 import com.example.maliva.view.home.HomeViewModel
 import com.example.maliva.view.login.LoginViewModel
+import com.example.maliva.view.planner.PlannerViewModel
 import com.example.maliva.view.profile.ProfileViewModel
 import com.example.maliva.view.profilelogin.ProfileLoginViewModel
 import com.example.maliva.view.register.RegisterViewModel
+import com.example.maliva.view.review.ReviewsViewModel
 import com.example.maliva.view.search.SearchViewModel
+import com.example.maliva.view.trip.TripViewModel
+import com.example.maliva.view.tripresult.TripResultViewModel
 
 class ViewModelFactory private constructor(
     private val destinationRepository: DestinationRepository,
@@ -42,6 +47,21 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
                 ProfileViewModel(destinationRepository) as T
+            }
+            modelClass.isAssignableFrom(ReviewsViewModel::class.java) -> {
+                ReviewsViewModel(destinationRepository) as T
+            }
+            modelClass.isAssignableFrom(GalleryViewModel::class.java) -> {
+                GalleryViewModel(destinationRepository) as T
+            }
+            modelClass.isAssignableFrom(PlannerViewModel::class.java) -> {
+                PlannerViewModel(destinationRepository) as T
+            }
+            modelClass.isAssignableFrom(TripResultViewModel::class.java) -> {
+                TripResultViewModel(destinationRepository) as T
+            }
+            modelClass.isAssignableFrom(TripViewModel::class.java) -> {
+                TripViewModel(destinationRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

@@ -19,15 +19,18 @@ import com.example.maliva.data.api.ApiConfig
 import com.example.maliva.data.preference.LoginPreferences
 import com.example.maliva.data.preference.dataStore
 import com.example.maliva.data.repository.DestinationRepository
+import com.example.maliva.data.utils.ObtainViewModelFactory
+import com.example.maliva.view.home.HomeViewModel
+import com.example.maliva.view.viewmodelfactory.ViewModelFactory
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ReviewFragment : Fragment() {
 
     private lateinit var binding: FragmentReviewBinding
-    private lateinit var reviewsViewModel: ReviewsViewModel
     private lateinit var reviewAdapter: ReviewAdapter
     private lateinit var destinationId: String
+    private lateinit var viewModel: ReviewsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +49,9 @@ class ReviewFragment : Fragment() {
         val apiService = ApiConfig.getApiService("")
         val loginPreferences = LoginPreferences.getInstance(requireContext().dataStore)
         val repository = DestinationRepository.getInstance(apiService, loginPreferences)
-        val viewModelFactory = ReviewsViewModelFactory(repository)
-        reviewsViewModel = ViewModelProvider(this, viewModelFactory).get(ReviewsViewModel::class.java)
+
+        viewModel = ObtainViewModelFactory.obtain(requireActivity())
+
 
         setupRecyclerView()
         loadReviewsData()
@@ -72,7 +76,7 @@ class ReviewFragment : Fragment() {
     }
 
     private fun loadReviewsData() {
-        reviewsViewModel.getDestinationReviews(destinationId).observe(viewLifecycleOwner, Observer { result ->
+        viewModel.getDestinationReviews(destinationId).observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Result.Loading -> {
                     Log.d(TAG, "Loading reviews data...")

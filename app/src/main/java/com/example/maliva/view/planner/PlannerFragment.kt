@@ -1,172 +1,363 @@
 package com.example.maliva.view.planner
 
 import android.app.Dialog
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import android.widget.ViewFlipper
-import com.example.maliva.R
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.example.maliva.data.response.TripPlanResponse
+import com.example.maliva.data.state.Result
+import com.example.maliva.databinding.FragmentPlannerBinding
+import com.example.maliva.view.viewmodelfactory.ViewModelFactory
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.button.MaterialButton
+import java.math.BigDecimal
+import android.Manifest
+import android.content.Intent
+import com.example.maliva.R
+import com.example.maliva.data.response.PlanItem
+import com.example.maliva.view.tripresult.TripResultActivity
+
 
 class PlannerFragment : BottomSheetDialogFragment() {
 
-    private lateinit var checkboxTraveler1: CheckBox
-    private lateinit var checkboxTraveler2: CheckBox
-    private lateinit var checkboxTraveler3: CheckBox
-    private lateinit var viewFlipper: ViewFlipper
-    private lateinit var autoCompleteTextView: AutoCompleteTextView
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
+    private lateinit var binding: FragmentPlannerBinding
+    private val viewModel: PlannerViewModel by viewModels {
+        ViewModelFactory.getInstance(requireContext())
+    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_planner, container, false)
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentPlannerBinding.inflate(inflater, container, false)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Reference the CheckBoxes
-        val traveler1View = view.findViewById<View>(R.id.checkboxTraveler1)
-        val traveler2View = view.findViewById<View>(R.id.checkboxTraveler2)
-        val traveler3View = view.findViewById<View>(R.id.checkboxTraveler3)
-
-        checkboxTraveler1 = traveler1View.findViewById(R.id.checkbox)
-        checkboxTraveler2 = traveler2View.findViewById(R.id.checkbox)
-        checkboxTraveler3 = traveler3View.findViewById(R.id.checkbox)
-
-        // Set unique content for each checkbox item
-        setupCheckbox(traveler1View, "Just Me", "A solo traveler in exploration")
-        setupCheckbox(traveler2View, "Friends", "Go out with fun friends")
-        setupCheckbox(traveler3View, "Family", "A happy trip with your family")
-
-        // Set click listeners for CheckBoxes
-        checkboxTraveler1.setOnCheckedChangeListener { _, isChecked ->
+        binding.checkboxTraveler1.checkbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                checkboxTraveler2.isChecked = false
-                checkboxTraveler3.isChecked = false
+                binding.checkboxTraveler2.checkbox.isChecked = false
+                binding.checkboxTraveler3.checkbox.isChecked = false
             }
         }
 
-        checkboxTraveler2.setOnCheckedChangeListener { _, isChecked ->
+        binding.checkboxTraveler2.checkbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                checkboxTraveler1.isChecked = false
-                checkboxTraveler3.isChecked = false
+                binding.checkboxTraveler1.checkbox.isChecked = false
+                binding.checkboxTraveler3.checkbox.isChecked = false
             }
         }
 
-        checkboxTraveler3.setOnCheckedChangeListener { _, isChecked ->
+        binding.checkboxTraveler3.checkbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                checkboxTraveler1.isChecked = false
-                checkboxTraveler2.isChecked = false
+                binding.checkboxTraveler1.checkbox.isChecked = false
+                binding.checkboxTraveler2.checkbox.isChecked = false
             }
         }
 
-        // Reference the ViewFlipper
-        viewFlipper = view.findViewById(R.id.viewFlipper)
-
-        // Set click listener for planner button
-        val plannerButton = view.findViewById<MaterialButton>(R.id.plannerButton)
-        plannerButton.setOnClickListener {
-            viewFlipper.showNext()
+        // Validate inputs before switching to the next page
+        binding.plannerButton.setOnClickListener {
+            if (validatePage1Inputs()) {
+                binding.viewFlipper.showNext()
+            }
         }
 
-        val plannerButton2 = view.findViewById<MaterialButton>(R.id.plannerButton2)
-        plannerButton2.setOnClickListener {
-            viewFlipper.showNext()
+        binding.plannerButton2.setOnClickListener {
+            if (validatePage2Inputs()) {
+                binding.viewFlipper.showNext()
+            }
         }
 
-        val btn_back = view.findViewById<ImageView>(R.id.btn_back)
-        btn_back.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             dismiss() // Close the bottom sheet
         }
 
-        val btn_back2 = view.findViewById<ImageView>(R.id.btn_back2)
-        btn_back2.setOnClickListener {
-            viewFlipper.showPrevious() // Switch to page 1
+        binding.btnBack2.setOnClickListener {
+            binding.viewFlipper.showPrevious() // Switch to page 1
         }
 
-        val btn_back3 = view.findViewById<ImageView>(R.id.btn_back3)
-        btn_back3.setOnClickListener {
-            viewFlipper.showPrevious() // Switch to page 2
+        binding.btnBack3.setOnClickListener {
+            binding.viewFlipper.showPrevious() // Switch to page 2
         }
 
-        // Set up the AutoCompleteTextView dropdown menu
-        setupDropdownMenu(view)
+        binding.plannerButton3.setOnClickListener {
+            if (validatePage3Inputs()) {
+                Log.d("PlannerFragment", "Saving trip plan button clicked")
+                saveTripPlan()
+            }
+        }
 
-        // Initialize bottom sheet behavior
-        bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
+        binding.sliderPrice.addOnChangeListener { slider, value, fromUser ->
+            val budget = value.toInt()
+            binding.budgetEditText.setText(budget.toString())
+        }
 
-        // Prevent bottom sheet from being collapsed or hidden
-        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if (newState == BottomSheetBehavior.STATE_HIDDEN || newState == BottomSheetBehavior.STATE_COLLAPSED) {
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        binding.fetchLocationButton.setOnClickListener {
+            fetchCurrentLocation()
+        }
+
+        viewModel.tripPlan.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Result.Success -> {
+                    val tripPlanResponse = result.data
+                    Log.d("PlannerFragment", "Trip plan successfully reloaded: $tripPlanResponse")
+                    updateUI(tripPlanResponse)
+                }
+                is Result.Error -> {
+                    val errorMessage = result.error
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                }
+                Result.Loading -> {
+                    Toast.makeText(requireContext(), "Loading...", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
+
+    private fun validatePage1Inputs(): Boolean {
+        return when {
+            !(binding.checkboxTraveler1.checkbox.isChecked || binding.checkboxTraveler2.checkbox.isChecked || binding.checkboxTraveler3.checkbox.isChecked) -> {
+                Toast.makeText(requireContext(), "Please select a category", Toast.LENGTH_SHORT).show()
+                false
+            }
+            else -> true
+        }
+    }
+
+    private fun validatePage2Inputs(): Boolean {
+        return when {
+            binding.latLongEditText.text.toString().trim().isEmpty() -> {
+                Toast.makeText(requireContext(), "Please enter current location of yours by click the get location", Toast.LENGTH_SHORT).show()
+                false
+            }
+            !(binding.chipPantai.isChecked || binding.chipSumber.isChecked || binding.chipAirTerjun.isChecked || binding.chipBukit.isChecked ||
+                    binding.chipKebun.isChecked || binding.chipSungai.isChecked || binding.chipTaman.isChecked || binding.chipHutan.isChecked ||
+                    binding.chipGunung.isChecked || binding.chipWaduk.isChecked || binding.chipBendungan.isChecked || binding.chipLembah.isChecked) -> {
+                Toast.makeText(requireContext(), "Please select a type", Toast.LENGTH_SHORT).show()
+                false
+            }
+            !(binding.chipYes.isChecked || binding.chipNo.isChecked) -> {
+                Toast.makeText(requireContext(), "Please select child preference", Toast.LENGTH_SHORT).show()
+                false
+            }
+            binding.destinationEditText.text.toString().trim().isEmpty() -> {
+                Toast.makeText(requireContext(), "Please enter a number of the amount of destination", Toast.LENGTH_SHORT).show()
+                false
+            }
+            else -> true
+        }
+    }
+
+    private fun validatePage3Inputs(): Boolean {
+        return when {
+            binding.sliderPrice.value == 0f -> {
+                Toast.makeText(requireContext(), "Please select a budget", Toast.LENGTH_SHORT).show()
+                false
+            }
+            else -> true
+        }
+    }
+
+    private fun saveTripPlan() {
+        try {
+            val category = when {
+                binding.checkboxTraveler1.checkbox.isChecked -> "Solo"
+                binding.checkboxTraveler2.checkbox.isChecked -> "Friends"
+                binding.checkboxTraveler3.checkbox.isChecked -> "Family"
+                else -> {
+                    Toast.makeText(requireContext(), "Please select a category", Toast.LENGTH_SHORT).show()
+                    return
                 }
             }
 
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                // Do nothing
+            val type = when {
+                binding.chipPantai.isChecked -> "Pantai"
+                binding.chipSumber.isChecked -> "Kebun"
+                binding.chipAirTerjun.isChecked -> "Air Terjun"
+                binding.chipBukit.isChecked -> "Bukit"
+                binding.chipKebun.isChecked -> "Kebun"
+                binding.chipSungai.isChecked -> "Sungai"
+                binding.chipTaman.isChecked -> "Taman"
+                binding.chipHutan.isChecked -> "Hutan"
+                binding.chipGunung.isChecked -> "Gunung"
+                binding.chipWaduk.isChecked -> "Waduk"
+                binding.chipBendungan.isChecked -> "Bendungan"
+                binding.chipLembah.isChecked -> "Lembah"
+                else -> "Default Type"
             }
-        })
 
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            val child = when {
+                binding.chipYes.isChecked -> "Yes"
+                binding.chipNo.isChecked -> "No"
+                else -> null
+            }
 
-        // Disable swipe-to-dismiss functionality
-        bottomSheetBehavior.isHideable = false
-        bottomSheetBehavior.skipCollapsed = true
-    }
+            val budget = binding.sliderPrice.value.toInt()
 
-    private fun setupDropdownMenu(view: View) {
-        autoCompleteTextView = view.findViewById(R.id.spinnerRegion)
+            val nrec = try {
+                binding.destinationEditText.text.toString().toInt()
+            } catch (e: NumberFormatException) {
+                Toast.makeText(requireContext(), "Please enter a valid number for recommendations", Toast.LENGTH_SHORT).show()
+                return
+            }
 
-        // Define the options for the dropdown menu including the hint
-        val optionsWithHint = arrayOf("Option 1", "Option 2", "Option 3")
+            val title = try {
+                binding.titleEditText.text.toString()
+            } catch (e: NumberFormatException) {
+                Toast.makeText(requireContext(), "Please enter a valid number for recommendations", Toast.LENGTH_SHORT).show()
+                return
+            }
 
-        // Create an ArrayAdapter with the options and custom dropdown layout
-        val adapter = ArrayAdapter(requireContext(), R.layout.item_spinner, optionsWithHint)
-
-        // Apply the adapter to the AutoCompleteTextView
-        autoCompleteTextView.setAdapter(adapter)
-
-        // Disable user input
-        autoCompleteTextView.isFocusable = false
-        autoCompleteTextView.isClickable = true
-
-        // Set a listener to handle item selection
-        autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
-            if (position == 0) {
-                // Handle hint selection
-                // Do nothing or show a message indicating that the user needs to select an option
-                Toast.makeText(requireContext(), "Please select an option", Toast.LENGTH_SHORT).show()
+            val latLongInput = binding.latLongEditText.text.toString().trim()
+            val (lat, long) = if (latLongInput.isNotEmpty()) {
+                val latLongParts = latLongInput.split(",")
+                if (latLongParts.size == 2) {
+                    val latStr = latLongParts[0].trim()
+                    val longStr = latLongParts[1].trim()
+                    Pair(BigDecimal(latStr), BigDecimal(longStr))
+                } else {
+                    Toast.makeText(requireContext(), "Invalid latitude and longitude format", Toast.LENGTH_SHORT).show()
+                    return
+                }
             } else {
-                // Handle other item selections
-                val selectedItem = parent.getItemAtPosition(position).toString()
-                Toast.makeText(requireContext(), "Selected: $selectedItem", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Please enter latitude and longitude", Toast.LENGTH_SHORT).show()
+                return
             }
+
+            Log.d(TAG, "Saving trip plan with parameters: category=$category, type=$type, child=$child, budget=$budget, lat=$lat, long=$long, nrec=$nrec")
+
+            // Ensure that viewModel.saveTripPlan() matches the correct method signature
+            viewModel.generateTripPlan(category, type, child, budget, lat, long, nrec, title) { result ->
+                when (result) {
+                    is Result.Success -> {
+                        val tripPlanResponse = result.data
+                        val (title, planItems) = generatePlanItems(tripPlanResponse)
+
+                        // Start TripResultActivity and pass the planItems list through Intent
+                        val intent = Intent(requireContext(), TripResultActivity::class.java).apply {
+                            putExtra("TITLE", title)
+                            putParcelableArrayListExtra("PLAN_ITEMS", ArrayList(planItems))
+                            putExtra("CATEGORY", category)
+                            putExtra("TYPE", type)
+                            putExtra("CHILD", child)
+                            putExtra("BUDGET", budget)
+                            putExtra("LATITUDE", lat)
+                            putExtra("LONGITUDE", long)
+                            putExtra("NREC", nrec)
+                        }
+                        startActivity(intent)
+                    }
+                    is Result.Error -> {
+                        // Handle error case
+                        Toast.makeText(requireContext(), "Error: ${result.error}", Toast.LENGTH_SHORT).show()
+                    }
+
+                    Result.Loading -> TODO()
+                }
+            }
+
+        } catch (e: Exception) {
+            Log.e(TAG, "Error saving trip plan", e)
+            Toast.makeText(requireContext(), "An unknown error occurred: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun setupCheckbox(view: View, primaryText: String, secondaryText: String) {
-        val primaryTextView = view.findViewById<TextView>(R.id.primaryText)
-        val secondaryTextView = view.findViewById<TextView>(R.id.secondaryText)
+    fun generatePlanItems(response: TripPlanResponse): Pair<String, List<PlanItem>> {
+        val planItems = mutableListOf<PlanItem>()
+        val title = response.data?.title.orEmpty()
 
-        primaryTextView.text = primaryText
-        secondaryTextView.text = secondaryText
+        response.data?.plan?.forEach { apiPlanItem ->
+            val planItem = PlanItem(
+                images = apiPlanItem?.images.orEmpty(),
+                alamat = apiPlanItem?.alamat.orEmpty(),
+                kategori = apiPlanItem?.kategori.orEmpty(),
+                jenisWisata = apiPlanItem?.jenisWisata.orEmpty(),
+                rating = apiPlanItem?.rating ?: 0.0,
+                latitude = apiPlanItem?.latitude ?: BigDecimal.ZERO,
+                longitude = apiPlanItem?.longitude ?: BigDecimal.ZERO,
+                deskripsi = apiPlanItem?.deskripsi.orEmpty(),
+                childFriendly = apiPlanItem?.childFriendly.orEmpty(),
+                linkAlamat = apiPlanItem?.linkAlamat.orEmpty(),
+                fasilitasYangTersedia = apiPlanItem?.fasilitasYangTersedia.orEmpty(),
+                namaWisata = apiPlanItem?.namaWisata.orEmpty(),
+                aksesibilitas = apiPlanItem?.aksesibilitas.orEmpty(),
+                harga = apiPlanItem?.harga ?: 0
+            )
+            planItems.add(planItem)
+        }
+
+        return Pair(title, planItems)
+    }
+
+    private fun updateUI(tripPlanResponse: TripPlanResponse) {
+        // Example: Update UI with trip plan details
+        // You can bind data from tripPlanResponse to your UI components here
+    }
+
+    private fun fetchCurrentLocation() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Permission is not granted, request it
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+        } else {
+            // Permission granted, proceed with location request
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener(requireActivity()) { location ->
+                    if (location != null) {
+                        val latitude = BigDecimal.valueOf(location.latitude)
+                        val longitude = BigDecimal.valueOf(location.longitude)
+                        Log.d(TAG, "Current location - Latitude: ${location.latitude}, Longitude: ${location.longitude}")
+                        updateLocationUI(latitude, longitude)
+                    } else {
+                        Log.e(TAG, "Last known location is null.")
+                        // Handle null location scenario, e.g., fallback or retry logic
+                        Toast.makeText(requireContext(), "Failed to fetch location", Toast.LENGTH_SHORT).show()
+                         val defaultLatitude = BigDecimal.valueOf(-7.257472)
+                         val defaultLongitude = BigDecimal.valueOf(112.752088)
+                         updateLocationUI(defaultLatitude, defaultLongitude)
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.e(TAG, "Error getting location", e)
+                    Toast.makeText(requireContext(), "Error getting location: ${e.message}", Toast.LENGTH_SHORT).show()
+                    // Handle failure scenario, e.g., retry logic
+                }
+        }
+    }
+
+
+    private fun updateLocationUI(latitude: BigDecimal, longitude: BigDecimal) {
+        binding.latLongEditText.setText("$latitude, $longitude")
     }
 
     override fun onStart() {
         super.onStart()
         dialog?.let {
-            val bottomSheet = it.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            val bottomSheet =
+                it.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
             bottomSheet?.layoutParams?.height = 1950
             val behavior = BottomSheetBehavior.from(bottomSheet)
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -178,5 +369,10 @@ class PlannerFragment : BottomSheetDialogFragment() {
         val dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
         dialog.window?.setDimAmount(0.8f)
         return dialog
+    }
+
+    companion object {
+        private const val TAG = "PlannerFragment"
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
     }
 }

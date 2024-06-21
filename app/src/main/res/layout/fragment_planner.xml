@@ -127,11 +127,11 @@
 
                 <include
                     android:id="@+id/checkboxTraveler2"
-                    layout="@layout/checkbox_item" />
+                    layout="@layout/checkbox_item_2" />
 
                 <include
                     android:id="@+id/checkboxTraveler3"
-                    layout="@layout/checkbox_item" />
+                    layout="@layout/checkbox_item_3" />
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -161,7 +161,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Page 2 -->
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_detail">
@@ -261,31 +261,46 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_plannerWhere" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/spinner_region"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
+                    android:id="@+id/latLongEditTextLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="13dp"
-                    android:elevation="0dp"
-                    app:boxStrokeColor="@color/primary"
-                    app:hintTextColor="@color/primary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_chooseWhere">
+                    app:layout_constraintTop_toBottomOf="@+id/tv_chooseWhere">
 
-                    <AutoCompleteTextView
-                        android:id="@+id/spinnerRegion"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/latLongEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:elevation="0dp"
-                        android:shadowColor="@android:color/transparent"
                         android:background="@drawable/bg_edit_text"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/poppins_medium"
-                        android:textSize="14sp"
-                        android:text="Choose your region"/>
+                        android:ems="10"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:fontFamily="@font/poppins_medium" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/fetchLocationButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="24dp"
+                    android:backgroundTint="@color/primary"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:outlineSpotShadowColor="@android:color/transparent"
+                    android:text="Get Location"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:cornerRadius="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/latLongEditTextLayout" />
+
 
                 <TextView
                     android:id="@+id/tv_activities"
@@ -295,8 +310,8 @@
                     android:fontFamily="@font/poppins_medium"
                     android:textSize="15.5sp"
                     android:textColor="@color/text_primary"
-                    app:layout_constraintLeft_toLeftOf="@id/spinner_region"
-                    app:layout_constraintTop_toBottomOf="@id/spinner_region"
+                    app:layout_constraintLeft_toLeftOf="@id/fetchLocationButton"
+                    app:layout_constraintTop_toBottomOf="@id/fetchLocationButton"
                     android:layout_marginTop="20dp" />
 
                 <com.google.android.material.chip.ChipGroup
@@ -312,7 +327,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_activities">
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_1_activities"
+                        android:id="@+id/chipPantai"
                         style="@style/Widget.Material3.Chip.Suggestion"
                         android:fontFamily="@font/poppins_medium"
                         android:textSize="15sp"
@@ -322,10 +337,10 @@
                         android:layout_height="65dp"
                         android:textColor="@drawable/chip_text"
                         android:textAlignment="center"
-                        android:text="Shopping"/>
+                        android:text="Pantai"/>
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_2_activities"
+                        android:id="@+id/chipSumber"
                         style="@style/Widget.Material3.Chip.Suggestion"
                         android:fontFamily="@font/poppins_medium"
                         android:textSize="15sp"
@@ -336,10 +351,10 @@
                         android:layout_height="65dp"
                         android:textColor="@drawable/chip_text"
                         android:textAlignment="center"
-                        android:text="Outdoor Adventures"/>
+                        android:text="Sumber"/>
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_3_activities"
+                        android:id="@+id/chipAirTerjun"
                         style="@style/Widget.Material3.Chip.Suggestion"
                         android:fontFamily="@font/poppins_medium"
                         android:textSize="15sp"
@@ -350,10 +365,10 @@
                         android:gravity="center_horizontal"
                         android:layout_height="65dp"
                         android:textColor="@drawable/chip_text"
-                        android:text="Kids Friendly"/>
+                        android:text="Air Terjun"/>
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_4_activities"
+                        android:id="@+id/chipBukit"
                         style="@style/Widget.Material3.Chip.Suggestion"
                         android:fontFamily="@font/poppins_medium"
                         android:textSize="15sp"
@@ -364,10 +379,10 @@
                         android:gravity="center_horizontal"
                         android:layout_height="65dp"
                         android:textColor="@drawable/chip_text"
-                        android:text="Amusement Parks"/>
+                        android:text="Bukit"/>
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_5_activities"
+                        android:id="@+id/chipKebun"
                         style="@style/Widget.Material3.Chip.Suggestion"
                         android:fontFamily="@font/poppins_medium"
                         android:textSize="15sp"
@@ -378,10 +393,10 @@
                         android:gravity="center_horizontal"
                         android:layout_height="65dp"
                         android:textColor="@drawable/chip_text"
-                        android:text="Museums"/>
+                        android:text="Kebun"/>
 
                     <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_6_activities"
+                        android:id="@+id/chipSungai"
                         style="@style/Widget.Material3.Chip.Suggestion"
                         android:fontFamily="@font/poppins_medium"
                         android:textSize="15sp"
@@ -392,7 +407,143 @@
                         android:gravity="center_horizontal"
                         android:layout_height="65dp"
                         android:textColor="@drawable/chip_text"
-                        android:text="Hiking &amp; Trekking"/>
+                        android:text="Sungai"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipTaman"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="210dp"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:textAlignment="center"
+                        android:text="Taman"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipHutan"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="140dp"
+                        android:gravity="center_horizontal"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:textAlignment="center"
+                        android:text="Hutan"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipGunung"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="200dp"
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:text="Gunung"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipWaduk"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="150dp"
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:text="Waduk"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipBendungan"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="220dp"
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:text="Bendungan"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipLembah"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="130dp"
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:text="Lembah"/>
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <TextView
+                    android:id="@+id/tv_kids"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_kids"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textSize="15.5sp"
+                    android:textColor="@color/text_primary"
+                    app:layout_constraintLeft_toLeftOf="@id/chipGrouActivities"
+                    app:layout_constraintTop_toBottomOf="@id/chipGrouActivities"
+                    android:layout_marginTop="20dp" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupKids"
+                    app:chipSpacingHorizontal="10dp"
+                    app:chipSpacingVertical="-5dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_kids">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipYes"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="wrap_content"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:textAlignment="center"
+                        android:text="Yes"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipNo"
+                        style="@style/Widget.Material3.Chip.Suggestion"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textSize="15sp"
+                        android:backgroundTint="@drawable/chip_background"
+                        app:chipStrokeColor="@drawable/chip_stroke"
+                        android:layout_width="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:layout_height="65dp"
+                        android:textColor="@drawable/chip_text"
+                        android:textAlignment="center"
+                        android:text="No"/>
                 </com.google.android.material.chip.ChipGroup>
 
                 <TextView
@@ -403,8 +554,8 @@
                     android:fontFamily="@font/poppins_medium"
                     android:textSize="15.5sp"
                     android:textColor="@color/text_primary"
-                    app:layout_constraintLeft_toLeftOf="@id/chipGrouActivities"
-                    app:layout_constraintTop_toBottomOf="@id/chipGrouActivities"
+                    app:layout_constraintLeft_toLeftOf="@id/chipGroupKids"
+                    app:layout_constraintTop_toBottomOf="@id/chipGroupKids"
                     android:layout_marginTop="20dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -425,15 +576,16 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_edit_text"
                         android:ems="10"
-                        android:fontFamily="@font/poppins_medium"
-                        android:inputType="textEmailAddress"></androidx.appcompat.widget.AppCompatEditText>
+                        android:inputType="number"
+                        android:fontFamily="@font/poppins_medium">
+                    </androidx.appcompat.widget.AppCompatEditText>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/tv_tripName"
+                    android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tv_tripName"
+                    android:text="Name your trip plan"
                     android:fontFamily="@font/poppins_medium"
                     android:textSize="15.5sp"
                     android:textColor="@color/text_primary"
@@ -442,7 +594,7 @@
                     android:layout_marginTop="20dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tripNameEditTextLayout"
+                    android:id="@+id/titleEditTextLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -450,17 +602,17 @@
                     android:layout_marginHorizontal="24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_tripName"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title"
                     tools:alpha="100">
 
                     <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/tripNameEditText"
+                        android:id="@+id/titleEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_edit_text"
                         android:ems="10"
-                        android:fontFamily="@font/poppins_medium"
-                        android:inputType="textEmailAddress"></androidx.appcompat.widget.AppCompatEditText>
+                        android:fontFamily="@font/poppins_medium">
+                    </androidx.appcompat.widget.AppCompatEditText>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
@@ -481,9 +633,9 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tripNameEditTextLayout" />
+                    app:layout_constraintTop_toBottomOf="@+id/titleEditTextLayout" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <!-- Page 3 -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -614,9 +766,44 @@
                 app:trackHeight="8dp"
                 app:thumbStrokeWidth="5dp"
                 app:thumbStrokeColor="@color/white"
+                android:valueFrom="0"
+                android:valueTo="2000000"
+                app:labelBehavior="gone"
                 app:thumbWidth="30dp"
-                app:thumbHeight="30dp"
-                app:labelBehavior="gone"/>
+                app:thumbHeight="30dp" />
+
+            <TextView
+                android:id="@+id/tv_budget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/budget"
+                android:layout_marginStart="24dp"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sliderPrice" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/Budget"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_budget">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/budgetEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:background="@drawable/bg_edit_text"
+                    android:ems="10">
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

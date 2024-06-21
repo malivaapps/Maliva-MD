@@ -16,31 +16,19 @@
         android:paddingHorizontal="17dp"
         android:background="@drawable/bg_category">
 
-        <ImageView
-            android:id="@+id/categoryIcon"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:src="@drawable/ic_beach"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"/>
-
         <TextView
             android:id="@+id/categoryName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Beach"
-            android:textColor="@color/text_secondary"
+            android:fontFamily="@font/poppins_medium"
             android:paddingStart="20dp"
             android:paddingEnd="16dp"
+            android:text="Beach"
+            android:textColor="@color/text_secondary"
             android:textSize="14sp"
-            android:fontFamily="@font/poppins_medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/categoryIcon"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

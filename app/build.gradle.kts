@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp") version "1.9.0-1.0.13"
 }
 
 android {
@@ -77,5 +78,14 @@ dependencies {
 
     //glide
     implementation("com.github.bumptech.glide:glide:4.15.0")
+
+
+    //room
+    implementation("androidx.room:room-runtime:2.5.2")
+    implementation("androidx.room:room-ktx:2.6.1")
+    ksp("androidx.room:room-compiler:2.5.2")
+
+    //gps
+    implementation ("com.google.android.gms:play-services-location:21.3.0")
 
 }

@@ -2,7 +2,6 @@ package com.example.maliva.view.review
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.maliva.R
 import com.example.maliva.data.api.ApiConfig
@@ -21,9 +19,7 @@ import com.example.maliva.data.preference.LoginPreferences
 import com.example.maliva.data.preference.dataStore
 import com.example.maliva.data.repository.DestinationRepository
 import com.example.maliva.data.state.Result
-import com.example.maliva.view.gallery.GalleryViewModel
-import com.example.maliva.view.gallery.GalleryViewModelFactory
-import com.example.maliva.data.api.ApiService
+import com.example.maliva.view.viewmodelfactory.ViewModelFactory
 import com.google.android.material.imageview.ShapeableImageView
 
 private const val ARG_DESTINATION_NAME = "destination_name"
@@ -38,14 +34,14 @@ class ReviewDialogFragment : DialogFragment() {
     private lateinit var destinationName: String
     private lateinit var destinationId: String
 
-    // Initialize repository
-    private val repository: DestinationRepository by lazy {
-        DestinationRepository(ApiConfig.getApiService(""), LoginPreferences.getInstance(requireContext().dataStore))
-    }
-
     // Initialize viewModel using viewModel delegate and ReviewsViewModelFactory
     private val viewModel: ReviewsViewModel by viewModels {
-        ReviewsViewModelFactory(repository)
+        ViewModelFactory.getInstance(requireContext())
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.CustomDialogTheme) // Apply custom dialog theme
     }
 
     override fun onCreateView(
@@ -116,6 +112,9 @@ class ReviewDialogFragment : DialogFragment() {
             ).show()
         }
     }
+
+
+
 
     companion object {
         // Static method to create a new instance of ReviewDialogFragment with destinationName, destinationId, and destinationImage

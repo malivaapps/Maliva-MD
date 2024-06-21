@@ -15,7 +15,7 @@
         android:text="@string/description"
         android:textColor="@color/text_primary"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@id/view"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,35 +27,13 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:background="@color/text_secondary_lighter"
-        app:layout_constraintBottom_toTopOf="@id/location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aksebilitasTextView" />
 
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_marginStart="24dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="@string/location"
-        android:textColor="@color/text_primary"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view" />
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginHorizontal="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/mapButton"
@@ -73,21 +51,48 @@
         app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapView" />
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
-        android:id="@+id/fasilitasTextView"
-        android:layout_width="0dp"
+        android:id="@+id/fasilitasTitleTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/poppins_semibold"
         android:text="@string/tv_fasilitas"
+        android:textColor="@color/text_primary"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
+
+    <TextView
+        android:id="@+id/fasilitasTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="fasilitas"
         android:textColor="@color/text_primary"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/fasilitasTitleTextView" />
+
+    <TextView
+        android:id="@+id/aksebilitasTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/tv_aksebilitas"
+        android:textColor="@color/text_primary"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fasilitasTextView" />
 
     <TextView
         android:id="@+id/aksebilitasTextView"
@@ -97,12 +102,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="@string/tv_aksebilitas"
+        android:text="aksesabilitas"
         android:textColor="@color/text_primary"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fasilitasTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/aksebilitasTitleTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

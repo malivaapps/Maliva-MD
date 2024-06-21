@@ -9,6 +9,7 @@ import com.example.maliva.data.repository.DestinationRepository
 import com.example.maliva.view.filter.FilterViewModel
 import com.example.maliva.view.home.HomeViewModel
 import com.example.maliva.view.login.LoginViewModel
+import com.example.maliva.view.profile.ProfileViewModel
 import com.example.maliva.view.profilelogin.ProfileLoginViewModel
 import com.example.maliva.view.register.RegisterViewModel
 import com.example.maliva.view.search.SearchViewModel
@@ -38,6 +39,9 @@ class ViewModelFactory private constructor(
             }
             modelClass.isAssignableFrom(FilterViewModel::class.java) -> {
                 FilterViewModel(destinationRepository) as T
+            }
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(destinationRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

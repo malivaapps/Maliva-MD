@@ -13,13 +13,20 @@ import com.example.maliva.data.utils.ObtainViewModelFactory
 import com.example.maliva.data.utils.setMotionVisibilities
 import com.example.maliva.view.main.MainActivity
 import android.util.Log
+import com.example.maliva.data.preference.LoginPreferences
+import com.example.maliva.data.preference.dataStore
 
 class LoginActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var loginPreferences: LoginPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        loginPreferences = LoginPreferences.getInstance(this.dataStore)
 
         val viewModel = ObtainViewModelFactory.obtain<LoginViewModel>(this)
 
@@ -48,7 +55,11 @@ class LoginActivity : AppCompatActivity() {
                             Log.d("LoginActivity", "API response: ${result.data}")
                             val session = result.data.data?.session
                             if (session != null) {
+                                // Simpan token, username, dan email ke DataStore
                                 viewModel.saveToken(session)
+                                viewModel.saveUsername(result.data.data.username.toString())
+                                viewModel.saveEmail(result.data.data.email.toString())
+
                                 alertBuilder.setTitle(getString(R.string.loginSuccess))
                                 alertBuilder.setMessage(getString(R.string.startExplore))
                                 alertBuilder.setPositiveButton(getString(R.string.ok)) { _, _ ->
@@ -81,6 +92,5 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 }

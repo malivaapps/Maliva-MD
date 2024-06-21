@@ -9,6 +9,7 @@
 
     <style name="ImageViewRoundedOverlay" parent="">
         <item name="cornerFamily">rounded</item>
+        <item name="colorPrimary">@color/primary</item>
         <item name="cornerSize">7%</item>
     </style>
 

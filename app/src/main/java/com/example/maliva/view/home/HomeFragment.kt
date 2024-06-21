@@ -1,28 +1,41 @@
 package com.example.maliva.view.home
 
+import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.maliva.R
 import com.example.maliva.adapter.category.CategoryAdapter
 import com.example.maliva.adapter.category.CategoryItem
 import com.example.maliva.adapter.destination.DestinationAdapter
+import com.example.maliva.adapter.recomendation.RecommendationAdapter
+import com.example.maliva.data.preference.LoginPreferences
+import com.example.maliva.data.preference.dataStore
 import com.example.maliva.data.response.DataItem
+import com.example.maliva.data.response.RecommendationsItem
 import com.example.maliva.data.state.Result
 import com.example.maliva.data.utils.ObtainViewModelFactory
 import com.example.maliva.databinding.FragmentHomeBinding
 import com.example.maliva.view.search.SearchActivity
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), CategoryAdapter.OnCategoryClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
+    private lateinit var recommendationAdapter: RecommendationAdapter
+    private lateinit var destinationAdapter: DestinationAdapter
+    private lateinit var categoryAdapter: CategoryAdapter
+    private lateinit var loginPreferences: LoginPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,59 +49,106 @@ class HomeFragment : Fragment(), CategoryAdapter.OnCategoryClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ObtainViewModelFactory.obtain(requireActivity())
+        loginPreferences = LoginPreferences.getInstance(requireContext().dataStore)
 
+        setupRecyclerViews()
         setupObservers()
-        setupRecyclerView()
         setupSearchViewClickListener()
+
+        fetchLastSearchQueryAndRecommendations()
     }
 
-    private fun setupRecyclerView() {
-        binding.rvPopularDestination.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        val adapter = DestinationAdapter(requireContext(), itemLayoutResId = R.layout.item_destination)
-        binding.rvPopularDestination.adapter = adapter
+    private fun setupRecyclerViews() {
+        // Setup RecyclerView for popular destinations
+        binding.rvPopularDestination.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        recommendationAdapter =
+            RecommendationAdapter(requireContext(), itemLayoutResId = R.layout.item_destination)
+        binding.rvPopularDestination.adapter = recommendationAdapter
 
-        binding.rvRecommendedDestination.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        val recommendedAdapter = DestinationAdapter(requireContext(), showRating = false, itemLayoutResId = R.layout.item_destination_2)
-        binding.rvRecommendedDestination.adapter = recommendedAdapter
+        // Setup RecyclerView for recommended destinations
+        binding.rvRecommendedDestination.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        destinationAdapter =
+            DestinationAdapter(requireContext(), showRating = false, itemLayoutResId = R.layout.item_destination_2)
+        binding.rvRecommendedDestination.adapter = destinationAdapter
 
-        binding.rvCategory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        // Setup RecyclerView for categories
+        binding.rvCategory.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        categoryAdapter = CategoryAdapter(emptyList(), this)
+        binding.rvCategory.adapter = categoryAdapter
     }
 
     private fun setupObservers() {
+        // Observe remote destination data
         viewModel.getAllDestination().observe(viewLifecycleOwner, Observer { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> {
-                        binding.progressBar.visibility = View.VISIBLE
-                    }
-                    is Result.Success -> {
-                        binding.progressBar.visibility = View.GONE
-                        getDestinations(result.data.data)
-                        getRecommendedDestinations(result.data.data)
-                        getCategories(result.data.data)
-                    }
-                    is Result.Error -> {
-                        binding.progressBar.visibility = View.GONE
-                        Toast.makeText(requireContext(), getString(R.string.title_signup), Toast.LENGTH_SHORT).show()
-                    }
+            when (result) {
+                is Result.Loading -> {
+                    Log.d(TAG, "getAllDestination: Loading")
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Result.Success -> {
+                    Log.d(TAG, "getAllDestination: Success")
+                    binding.progressBar.visibility = View.GONE
+                    getDestinations(result.data.data)
+                    getCategories(result.data.data)
+                }
+                is Result.Error -> {
+                    Log.e(TAG, "getAllDestination: Error")
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), getString(R.string.title_signup), Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        })
+
+        // Observe remote recommendations data
+        viewModel.getRecommendations().observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is Result.Success -> {
+                    Log.d(TAG, "getRecommendations: Success")
+                    binding.progressBar.visibility = View.GONE
+                    getRecommendedDestinations(result.data.recommendations)
+                }
+                is Result.Error -> {
+                    val errorMessage = "Error fetching recommendations: ${result.error}"
+                    Log.e(TAG, errorMessage)
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    Log.e(TAG, "getRecommendations: Error")
+                    binding.progressBar.visibility = View.GONE
                 }
             }
         })
     }
 
-    private fun getDestinations(result: List<DataItem?>?) {
-        result?.let {
-            val limitedList = it.filterNotNull().take(100)
-            val adapter = binding.rvPopularDestination.adapter as DestinationAdapter
-            adapter.submitList(limitedList)
+    private fun fetchLastSearchQueryAndRecommendations() {
+        lifecycleScope.launch {
+            loginPreferences.getLastQuery().collect { lastQuery ->
+                lastQuery?.let { query ->
+                    Log.d(TAG, "Last query: $query")
+                    viewModel.getRecommendations(query)
+                }
+            }
         }
     }
 
-    private fun getRecommendedDestinations(result: List<DataItem?>?) {
+    private fun getRecommendedDestinations(result: List<RecommendationsItem?>?) {
         result?.let {
-            val limitedList = it.filterNotNull().take(100)
-            val adapter = binding.rvRecommendedDestination.adapter as DestinationAdapter
-            adapter.submitList(limitedList)
+            Log.d(TAG, "getRecommendedDestinations: Received data: ${it.size} items")
+            val limitedList = it.take(100)
+            recommendationAdapter.submitList(limitedList)
+        }
+    }
+
+    private fun getDestinations(result: List<DataItem?>?) {
+        result?.let {
+            Log.d(TAG, "getDestinations: Received data: ${it.size} items")
+            val limitedList = it.take(100)
+            destinationAdapter.submitList(limitedList)
         }
     }
 
@@ -96,31 +156,47 @@ class HomeFragment : Fragment(), CategoryAdapter.OnCategoryClickListener {
         result?.let {
             val categories = it.mapNotNull { dataItem ->
                 dataItem?.activities?.let { activity ->
-                    // Here you should replace R.drawable.ic_default with the appropriate icon
                     CategoryItem(name = activity)
                 }
             }.distinctBy { it.name }
 
-            val adapter = CategoryAdapter(categories, this)
-            binding.rvCategory.adapter = adapter
+            categoryAdapter = CategoryAdapter(categories, this)
+            binding.rvCategory.adapter = categoryAdapter
         }
     }
 
     private fun setupSearchViewClickListener() {
         binding.searchView.setOnClickListener {
             val intent = Intent(requireContext(), SearchActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, SEARCH_REQUEST_CODE)
         }
     }
 
     override fun onCategoryClick(category: String) {
         val intent = Intent(requireContext(), SearchActivity::class.java)
         intent.putExtra("SELECTED_CATEGORY", category)
-        startActivity(intent)
+        startActivityForResult(intent, SEARCH_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SEARCH_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val query = data?.getStringExtra("SEARCH_QUERY")
+            query?.let {
+                Log.d(TAG, "Received search query from SearchActivity: $it")
+                viewModel.getRecommendations(it)
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding.rvPopularDestination.adapter = null
+        binding.rvRecommendedDestination.adapter = null
+    }
+
+    companion object {
+        private const val TAG = "HomeFragment"
+        private const val SEARCH_REQUEST_CODE = 100
     }
 }

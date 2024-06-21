@@ -3,6 +3,8 @@
 import com.example.maliva.data.preference.UserModel
 import com.example.maliva.data.response.DestinationResponse
 import com.example.maliva.data.response.GalleryResponse
+import com.example.maliva.data.response.ProfileResponse
+import com.example.maliva.data.response.RecomendationResponse
 import com.example.maliva.data.response.ReviewUploadRequest
 import com.example.maliva.data.response.ReviewsResponse
 import com.example.maliva.data.response.SignInResponse
@@ -22,6 +24,7 @@ import retrofit2.http.Path
 import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.Header
+import retrofit2.http.PUT
 import retrofit2.http.Query
 import java.math.BigDecimal
 
@@ -105,5 +108,25 @@ interface ApiService {
         @Query("minRange") minRange: Int? = null,
         @Query("maxRange") maxRange: Int? = null
     ): DestinationResponse
+
+    @GET("destination?")
+    suspend fun getQuery(
+        @Query("search") search: String
+    ): DestinationResponse
+
+    @GET("recommendation?")
+    suspend fun getqueryRecomendations(
+        @Query("search") search: String
+    ): RecomendationResponse
+
+    @GET("recommendation")
+    suspend fun getRecommendations(
+    ): RecomendationResponse
+
+
+    @GET("authenticate/profile")
+    suspend fun getProfile(
+        @Header("Authorization") token: String
+    ): ProfileResponse
 
 }

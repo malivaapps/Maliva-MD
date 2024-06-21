@@ -37,8 +37,8 @@ class SavedFragment : Fragment() {
         rvSaved.adapter = favoriteDestinationAdapter
 
         // Observe saved destinations from ViewModel
-        savedViewModel.savedDestinations.observe(viewLifecycleOwner, { favorites ->
+        savedViewModel.savedDestinations.observe(viewLifecycleOwner) { favorites ->
             favoriteDestinationAdapter.submitList(favorites)
-        })
+        }
     }
 }

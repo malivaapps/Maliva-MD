@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.maliva.R
 
+
 class DescriptionFragment : Fragment() {
 
     companion object {
@@ -58,6 +59,7 @@ class DescriptionFragment : Fragment() {
         descriptionTextView.text = description
         fasilitasTextView.text = fasilitas
         aksesibilitasTextView.text = aksesibilitas
+
         button.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
             startActivity(intent)
